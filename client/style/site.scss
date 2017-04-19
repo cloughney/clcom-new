@@ -1,0 +1,38 @@
+$color-primary: hsl(40deg, 100%, 78%);
+$color-primary-alt: desaturate($color-primary, 30%);
+
+$color-secondary: hsl(23deg, 100%, 78%);
+$color-secondary-alt: desaturate($color-secondary, 30%);
+
+$color-background: lighten($color-primary, 18%);
+$color-shadow: hsl(0deg, 0%, 85%);
+
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
+
+body {
+	background: $color-background;
+
+	> header {
+		margin: 15px 0 25px;
+		height: 210px;
+		background: $color-secondary-alt;
+
+		box-shadow: 0 1px 3px 2px $color-shadow;
+	}
+
+	> section {
+		.card {
+			padding: 10px;
+			min-height: 400px;
+			background: #fff;
+
+			transition: box-shadow 300ms;
+			box-shadow: 1px 1px 3px 1px $color-shadow;
+
+			&:hover {
+				box-shadow: 2px 2px 5px 4px $color-shadow;
+			}
+		}
+	}
+}
