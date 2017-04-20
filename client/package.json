@@ -4,11 +4,11 @@
   "description": "A personal website for Chris Loughney.",
   "main": "index.js",
   "scripts": {
-	  "build": "npm run webpack",
-	  "start": "npm run build",
-	  "test": "echo \"Error: no test specified\" && exit 1",
-	  "watch": "webpack --watch",
-	  "webpack": "webpack"
+    "build": "npm run webpack",
+    "start": "npm run build && webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "style-loader": "^0.16.1",
     "typescript": "^2.2.2",
     "url-loader": "^0.5.8",
-    "webpack": "^2.4.1"
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.2"
   }
 }

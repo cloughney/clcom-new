@@ -56,7 +56,7 @@ const corePlugins = [
 	}),
 	new HtmlWebpackPlugin({
 		title: title,
-		template: 'index.html',
+		template: 'index.ejs',
 		chunksSortMode: 'dependency'
 	}),
 	new ExtractTextPlugin({
@@ -65,7 +65,7 @@ const corePlugins = [
 	}),
 	new CopyWebpackPlugin([
 		//{ from: 'favicon.ico', to: 'favicon.ico' },
-		{ from: 'images', to: 'images' }
+		//{ from: 'images', to: 'images' }
 	]),
 	new webpack.optimize.CommonsChunkPlugin({
 		name: ['app', 'bootstrap']
@@ -126,5 +126,12 @@ module.exports = {
 	},
 
 	plugins: corePlugins.concat(envPlugins),
-	devtool: devTools.join(',')
+	devtool: devTools.join(','),
+	devServer: {
+		contentBase: 'dist/',
+		compress: false,
+		noInfo: true,
+		inline: true,
+		historyApiFallback: true
+	}
 };

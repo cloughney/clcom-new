@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+		<title><%= htmlWebpackPlugin.options.title %></title>
+	</head>
+	<body>
+		<header class="container">
+			<div class="card layer-1 flat">
+				test
+			</div>
+		</header>
+		<div class="container">
+			<section class="feed">
+				<ul class="list-inline list-unstyled">
+					<li class="col-md-6">
+						<div class="card layer-2">
+							<article>
+								testdfasd
+							</article>
+						</div>
+					</li>
+					<li class="col-md-6">
+						<div class="card layer-2">
+							<article>
+								testdfasd
+							</article>
+						</div>
+					</li>
+				</ul>
+			</section>
+		</div>
+
+		<% if (webpackConfig.isDevelopment) { %>
+	    <script src="/webpack-dev-server.js"></script>
+	    <% } %>
+	</body>
+</html>
