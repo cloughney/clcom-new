@@ -65,7 +65,7 @@ const corePlugins = [
 	}),
 	new CopyWebpackPlugin([
 		//{ from: 'favicon.ico', to: 'favicon.ico' },
-		//{ from: 'images', to: 'images' }
+		{ from: 'images', to: 'images' }
 	]),
 	new webpack.optimize.CommonsChunkPlugin({
 		name: ['app', 'bootstrap']
@@ -117,7 +117,14 @@ module.exports = {
 			test: /\.scss$/,
 			use: ExtractTextPlugin.extract({
 				fallback: 'style-loader',
-				use: ['css-loader', 'sass-loader']
+				use: [{
+					loader: 'css-loader'
+				}, {
+					loader: 'sass-loader',
+					options: {
+						includePaths: ['./node_modules']
+					}
+				}]
 			})
 		}, {
 			test: /\.(png|jpe?g|gif|svg|eot|woff|woff2|ttf)(\?\S*)?$/,

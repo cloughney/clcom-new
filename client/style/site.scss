@@ -1,4 +1,10 @@
+$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/'; //css-loader cwd is the project root dir, so we need to correct bootstrap's font path
+@import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+@import 'material/card.scss';
 
 $color-primary: hsl(40deg, 100%, 78%);
 $color-primary-alt: desaturate($color-primary, 30%);
@@ -6,86 +12,125 @@ $color-primary-alt: desaturate($color-primary, 30%);
 $color-secondary: hsl(23deg, 100%, 78%);
 $color-secondary-alt: desaturate($color-secondary, 30%);
 
-$color-background: lighten($color-primary, 18%);
-
-/// Gives a card depth effect.
-/// @param {Number} $depth - depth level (between 1 and 5)
-/// @link http://www.google.com/design/spec/layout/layout-principles.html#layout-principles-dimensionality Google Design
-/// @requires {function} top-shadow
-/// @requires {function} bottom-shadow
-@mixin card($depth) {
-	@if $depth < 1 {
-		box-shadow: none;
-	} @else if $depth > 5 {
-		@warn "Invalid $depth `#{$depth}` for mixin `card`.";
-	} @else {
-		box-shadow: bottom-shadow($depth), top-shadow($depth);
-	}
-}
-
-/// Computes a top-shadow for a card effect.
-/// @param {Number} $depth - depth level
-/// @return {List}
-@function top-shadow($depth) {
-  $primary-offset: nth(1.5 3 10 14 19, $depth) * 1px;
-  $blur: nth(1.5 3 10 14 19, $depth) * 4px;
-  $color: rgba(black, nth(.12 .16 .19 .25 .30, $depth));
-
-  @return 0 $primary-offset $blur $color;
-}
-
-/// Computes a bottom-shadow for a card effect.
-/// @param {Number} $depth - depth level
-/// @return {List}
-@function bottom-shadow($depth) {
-  $primary-offset: nth(1.5 3 6 10 15, $depth) * 1px;
-  $blur: nth(1 3 3 5 6, $depth) * 4px;
-  $color: rgba(black, nth(.24 .23 .23 .22 .22, $depth));
-
-  @return 0 $primary-offset $blur $color;
-}
-
-
-@import url("../node_modules/bootstrap/dist/css/bootstrap.css");
-//@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");
+$color-background: hsl(88deg, 62%, 76%);
 
 body {
-	background: $color-background;
+	background: #fff;
+	padding: 0;
+	margin: 0;
+	height: 100%;
 
-	.card {
-		height: 15em;
-		margin: 0.5em;
-		padding: 0.5em;
-		background: #fff;
-		border: 1px solid rgba(black, 0.1);
+	font-family: 'Source Sans Pro';
 
-		transition: all 250ms;
+	> header {
+		padding: 15px 0 0;
+		margin: 0;
+		//background: $color-background;
 
-		article {
-
+		> h1 {
+			float: left;
+			margin: 0;
+			//font-family: 'Raleway';
+			font-size: 2.5em;
+			color: #888;
+			text-shadow: 1px 1px 1px #ccc;
 		}
 
-		@for $i from 1 through 4 {
-			&.layer-#{$i} {
-				@include card($i - 1);
+		> ul {
+			@extend .list-unstyled, .list-inline;
+			float: right;
 
-				&:hover:not(.flat) {
-					@include card($i);
+			li {
+				&:not(:last-of-type) {
+					padding-right: 20px;
+				}
+
+				a {
+					font-size: 1.5em;
+					line-height: 2.5em;
+					color: #999;
+
+					&, &:visited, &:active, &:hover {
+						text-decoration: none;
+					}
 				}
 			}
 		}
 	}
 
-	> header {
-		padding: 15px 0 25px;
-
-		.card {
-			background: $color-secondary-alt;
-			height: 210px;
-		}
-	}
-
 	> div.container {
+		margin-bottom: 50px;
+		padding-bottom: 25px;
+		//background: $color-background;
+		height: 100%;
 
+		.feed {
+			@extend .container-fluid;
+			$feed-col-size: 4;
+
+			li {
+				@extend .col-md-#{$feed-col-size};
+				padding: 0 2px;
+
+				> .card {
+					@extend .clearfix;
+					height: 250px;
+
+					&:not(.flat) {
+						cursor: pointer;
+					}
+
+					&.news {
+						padding: 10px 15px;
+
+						article {
+							@extend .clearfix;
+
+							> h1 {
+								@extend .col-md-12;
+								margin: 0 0 10px;
+								padding-bottom: 5px;
+
+								font-size: 1.5em;
+								color: #777;
+								border-bottom: 1px solid #eee;
+							}
+
+							> img {
+								@extend .col-md-5, .col-sm-12;
+								padding: 0;
+								max-width: 180px;
+								max-height: 180px;
+							}
+
+							> section {
+								@extend .col-md-7, .col-sm-12;
+								padding: 0 10px;
+								font-size: 1.2em;
+							}
+						}
+					}
+
+					&.console {
+						position: relative;
+						border: 1px solid #666;
+
+						> div {
+							position: absolute;
+							top: 0; bottom: 0; left: 0; right: 0;
+							padding: 5px;
+
+							background: #000;
+							color: #fff;
+						}
+					}
+				}
+
+				&.colspan-2 {
+					@extend .col-md-#{$feed-col-size * 2};
+					padding: 0 2px;
+				}
+			}
+		}
 	}
 }
