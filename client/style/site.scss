@@ -2,7 +2,7 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/'; //css-loader cwd is 
 @import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
-@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
 
 @import 'material/card.scss';
 
@@ -13,6 +13,9 @@ $color-secondary: hsl(23deg, 100%, 78%);
 $color-secondary-alt: desaturate($color-secondary, 30%);
 
 $color-background: hsl(88deg, 62%, 76%);
+
+$title-size: 2.2em;
+$menu-size: 1.3em;
 
 body {
 	background: #fff;
@@ -31,7 +34,7 @@ body {
 			float: left;
 			margin: 0;
 			//font-family: 'Raleway';
-			font-size: 2.5em;
+			font-size: $title-size;
 			color: #888;
 			text-shadow: 1px 1px 1px #ccc;
 		}
@@ -46,9 +49,10 @@ body {
 				}
 
 				a {
-					font-size: 1.5em;
-					line-height: 2.5em;
+					font-size: $menu-size;
+					line-height: $title-size;
 					color: #999;
+					text-shadow: 1px 1px 1px #ccc;
 
 					&, &:visited, &:active, &:hover {
 						text-decoration: none;
@@ -60,17 +64,17 @@ body {
 
 	> div.container {
 		margin-bottom: 50px;
-		padding-bottom: 25px;
+		padding-bottom: 15px;
 		//background: $color-background;
 		height: 100%;
 
 		.feed {
 			@extend .container-fluid;
-			$feed-col-size: 4;
+			$feed-col-size: 6;
 
 			li {
 				@extend .col-md-#{$feed-col-size};
-				padding: 0 2px;
+				padding: 5px 2px;
 
 				> .card {
 					@extend .clearfix;
@@ -113,15 +117,44 @@ body {
 
 					&.console {
 						position: relative;
+
+						cursor: text;
 						border: 1px solid #666;
 
-						> div {
+						> form {
+						//	@extend .form-inline;
+
 							position: absolute;
 							top: 0; bottom: 0; left: 0; right: 0;
 							padding: 5px;
 
 							background: #000;
 							color: #fff;
+							font-family: 'Inconsolata';
+							font-size: 1.1em;
+
+							.output {
+								
+							}
+
+							.input-line {
+								display: table;
+								width: 100%;
+
+								> label {
+									display: table-cell;
+									width: 1px;
+									font-weight: normal;
+								}
+
+								> input {
+									display: table-cell;
+									width: 100%;
+									background: black;
+									border: none;
+									outline: none;
+								}
+							}
 						}
 					}
 				}
