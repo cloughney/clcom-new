@@ -1,7 +1,5 @@
 'use strict';
 
-const configureForTests = process.env.WEBPACK_TEST_CONFIG || false;
-
 const webpack = require('webpack');
 const path = require('path');
 
@@ -38,7 +36,7 @@ const bootstrapPackages = [
 	'react-redux'
 ];
 
-const entries = configureForTests ? {} : {
+const entries = isTesting ? {} : {
 	'app': ['./src/index'],
 	'bootstrap': bootstrapPackages
 };

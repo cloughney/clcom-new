@@ -6,19 +6,19 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/'; //css-loader cwd is 
 
 @import 'material/card.scss';
 
-$color-primary: hsl(40deg, 100%, 78%);
+$color-primary: hsl(88deg, 100%, 30%);
 $color-primary-alt: desaturate($color-primary, 30%);
 
 $color-secondary: hsl(23deg, 100%, 78%);
 $color-secondary-alt: desaturate($color-secondary, 30%);
 
-$color-background: hsl(88deg, 62%, 76%);
+$color-background: hsl(88deg, 62%, 85%);
 
-$title-size: 2.2em;
+$title-size: 2em;
 $menu-size: 1.3em;
 
 body {
-	background: #fff;
+	background: $color-background;
 	padding: 0;
 	margin: 0;
 	height: 100%;
@@ -26,37 +26,43 @@ body {
 	font-family: 'Source Sans Pro';
 
 	> header {
-		padding: 15px 0 0;
+		padding: 10px 0;
 		margin: 0;
 		//background: $color-background;
+		text-shadow: 1px 1px 1px #ddd;
+
+		a {
+			color: $color-primary;
+			transition: 250ms;
+
+			&, &:visited, &:active, &:hover {
+				text-decoration: none;
+			}
+
+			&:hover {
+				color: lighten($color-primary, 5%);
+			}
+		}
 
 		> h1 {
 			float: left;
 			margin: 0;
-			//font-family: 'Raleway';
+
 			font-size: $title-size;
-			color: #888;
-			text-shadow: 1px 1px 1px #ccc;
+			color: $color-primary;
 		}
 
 		> ul {
 			@extend .list-unstyled, .list-inline;
 			float: right;
+			margin: 0;
 
 			li {
+				font-size: $menu-size;
+				line-height: $title-size;
+
 				&:not(:last-of-type) {
 					padding-right: 20px;
-				}
-
-				a {
-					font-size: $menu-size;
-					line-height: $title-size;
-					color: #999;
-					text-shadow: 1px 1px 1px #ccc;
-
-					&, &:visited, &:active, &:hover {
-						text-decoration: none;
-					}
 				}
 			}
 		}
@@ -127,6 +133,10 @@ body {
 							position: absolute;
 							top: 0; bottom: 0; left: 0; right: 0;
 							padding: 5px;
+							overflow-x: hidden;
+							overflow-y: auto;
+							word-wrap: break-word;
+							word-break: break-all;
 
 							background: #000;
 							color: #fff;
@@ -134,7 +144,7 @@ body {
 							font-size: 1.1em;
 
 							.output {
-								
+
 							}
 
 							.input-line {
@@ -145,10 +155,16 @@ body {
 									display: table-cell;
 									width: 1px;
 									font-weight: normal;
+
+									&::after {
+										content: '\00a0';
+									}
 								}
 
 								> input {
 									display: table-cell;
+									padding: 0;
+									margin-left: -1px;
 									width: 100%;
 									background: black;
 									border: none;
