@@ -83,9 +83,9 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 		this.cursorElement.style.visibility = 'hidden';
 
 		const input = this.inputElement.value;
-		await this.writeOutput({ data: `${this.cursor} ${input}`, writeLine: true, forceNewLine: true });
 		this.inputElement.value = '';
 
+		await this.writeOutput({ data: `${this.cursor} ${input}`, writeLine: true, forceNewLine: true });
 		await this.sendCommand(input);
 
 		this.cursorElement.style.visibility = 'visible';
@@ -117,10 +117,20 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 				currentLine.hasEol = params.writeLine;
 			}
 
+			if (outputLines.length > 100) {
+				outputLines.splice(0, 1);
+			}
+
 			return { outputLines };
 		});
+
 		this.focusInput();
 	};
+
+	private clearOutput = (): Promise<void> => {
+		this.setState(state => ({ outputLines: [] }));
+		return Promise.resolve();
+	}
 
 	private sendCommand = (input: string): Promise<number> => {
 		if (!this.props.onCommandReceived) return;
@@ -138,11 +148,13 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 
 				stdout: {
 					write: data => this.writeOutput({ data, writeLine: false }),
-					writeLine: data => this.writeOutput({ data, writeLine: true })
+					writeLine: data => this.writeOutput({ data, writeLine: true }),
+					clear: this.clearOutput
 				},
 				stderr: {
 					write: data => this.writeOutput({ data, writeLine: false, outputType: ConsoleTextLineType.Error }),
-					writeLine: data => this.writeOutput({ data, writeLine: true, outputType: ConsoleTextLineType.Error })
+					writeLine: data => this.writeOutput({ data, writeLine: true, outputType: ConsoleTextLineType.Error }),
+					clear: this.clearOutput
 				}
 			} as ConsoleCommand);
 

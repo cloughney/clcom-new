@@ -15,10 +15,15 @@ commands.set('help', cmd => new Promise<number>(resolve => {
 	resolve(0);
 }));
 
-const exeNotFound = cmd => new Promise<number>(resolve => {
-	cmd.stderr.writeLine(`'${cmd.name}' is not a valid command.`);
-	resolve(1);
+commands.set('clear', async cmd => {
+	await cmd.stdout.clear();
+	return Promise.resolve(0);
 });
+
+const exeNotFound = async cmd => {
+	await cmd.stderr.writeLine(`'${cmd.name}' is not a valid command.`);
+	return Promise.resolve(1);
+};
 
 //<Provider store={stateStore}>
 //</Provider>,
