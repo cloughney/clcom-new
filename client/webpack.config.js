@@ -107,12 +107,14 @@ module.exports = {
 			use: 'awesome-typescript-loader'
 		}, {
 			test: /\.css$/,
+			exclude: [path.resolve('node_modules')],
 			use: ExtractTextPlugin.extract({
 				fallback: 'style-loader',
 				use: 'css-loader'
 			})
 		}, {
 			test: /\.scss$/,
+			exclude: [path.resolve('node_modules')],
 			use: ExtractTextPlugin.extract({
 				fallback: 'style-loader',
 				use: [{
@@ -126,6 +128,7 @@ module.exports = {
 			})
 		}, {
 			test: /\.(png|jpe?g|gif|svg|eot|woff|woff2|ttf)(\?\S*)?$/,
+			//exclude: [path.resolve('node_modules')],
 			use: 'url-loader?limit=100000&name=[name].[ext]'
 		}]
 	},
