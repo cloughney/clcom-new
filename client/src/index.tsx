@@ -11,11 +11,12 @@ import Console from './console/index';
 const commands = new Map<string, (command: any) => Promise<number>>();
 commands.set('help', cmd => new Promise<number>(resolve => {
 	cmd.stdout.write('HELP!');
+	cmd.stdout.write('HELP!');
 	resolve(0);
 }));
 
 const exeNotFound = cmd => new Promise<number>(resolve => {
-	cmd.stderr.write(`'${cmd.name}' is not a valid command.`);
+	cmd.stderr.writeLine(`'${cmd.name}' is not a valid command.`);
 	resolve(1);
 });
 

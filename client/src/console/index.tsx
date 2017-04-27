@@ -14,13 +14,19 @@ interface ConsoleState {
 
 interface ConsoleTextLine {
 	text: string;
-	className?: string;
+	type: ConsoleTextLineType;
+	hasEol: boolean;
+}
+
+enum ConsoleTextLineType {
+	Standard,
+	Error
 }
 
 const welcomeMessage = [
-	{ text: '### Welcome ###############################################' },
-	{ text: '### Type \'help\' to see available commands. ################' },
-	{ text: '###########################################################' }
+	{ text: '### Welcome ###############################################', type: ConsoleTextLineType.Standard, hasEol: true },
+	{ text: '### Type \'help\' to see available commands. ################', type: ConsoleTextLineType.Standard, hasEol: true },
+	{ text: '###########################################################', type: ConsoleTextLineType.Standard, hasEol: true }
 ];
 
 export default class Console extends React.Component<ConsoleProps, ConsoleState> {
@@ -41,10 +47,19 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 	}
 
 	public render(): JSX.Element {
-		const outputHtml = this.state.outputLines.map((line, index) => (<div key={ index } className={ line.className }>{ line.text }</div>));
+		const outputHtml = this.state.outputLines.map((line, index) => {
+			let className: string;
+			switch (line.type) {
+				case ConsoleTextLineType.Error:
+					className = 'error';
+					break;
+			}
+
+			return (<div key={ index } className={ className }>{ line.text }</div>);
+		});
 
 		return (
-			<form onClick={ this.onFocus } onSubmit={ this.onInput } ref={ el => { this.formElement = el; } }>
+			<form onClick={ this.focusInput } onSubmit={ this.onInput } ref={ el => { this.formElement = el; } }>
 				<div className="output">
 					{ outputHtml }
 				</div>
@@ -56,7 +71,8 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 		);
 	}
 
-	private onFocus = (): void => {
+	private focusInput = (): void => {
+		this.formElement.scrollTop = this.formElement.scrollHeight;
 		this.inputElement.focus();
 	};
 
@@ -67,33 +83,43 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 		this.cursorElement.style.visibility = 'hidden';
 
 		const input = this.inputElement.value;
-		await this.onStdOut(`${this.cursor} ${input}`);
+		await this.writeOutput({ data: `${this.cursor} ${input}`, writeLine: true, forceNewLine: true });
 		this.inputElement.value = '';
 
 		await this.sendCommand(input);
 
 		this.cursorElement.style.visibility = 'visible';
 		this.inputElement.style.visibility = 'visible';
-		this.inputElement.focus();
+		this.focusInput();
 	};
 
-	private onStdOut = async (data: string): Promise<void> => {
-		const dataLine = {
-			text: data
-		};
+	private writeOutput = async (params: {
+		data: string;
+		writeLine?: boolean;
+		forceNewLine?: boolean;
+		outputType?: ConsoleTextLineType;
+	}): Promise<void> => {
 
-		this.setState(state => ({ outputLines: state.outputLines.concat([ dataLine ]) }));
-		this.formElement.scrollTop = this.formElement.scrollHeight;
-	};
+		this.setState(state => {
+			const outputLines = state.outputLines;
+			const currentLine: ConsoleTextLine = outputLines.length !== 0 ? outputLines[outputLines.length - 1] : undefined;
+			const writeNewLine = !currentLine || currentLine.hasEol || params.forceNewLine;
 
-	private onStdErr = async (data: string): Promise<void> => {
-		const dataLine = {
-			className: 'error',
-			text: data
-		};
+			if (writeNewLine) {
+				outputLines.push({
+					text: params.data,
+					type: params.outputType,
+					hasEol: params.writeLine
+				});
+			} else {
+				currentLine.text += params.data;
+				currentLine.type = params.outputType;
+				currentLine.hasEol = params.writeLine;
+			}
 
-		this.setState(state => ({ outputLines: state.outputLines.concat([ dataLine ]) }));
-		this.formElement.scrollTop = this.formElement.scrollHeight;
+			return { outputLines };
+		});
+		this.focusInput();
 	};
 
 	private sendCommand = (input: string): Promise<number> => {
@@ -110,9 +136,15 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 				name: commandName,
 				args: commandArgs,
 
-				stdout: { write: this.onStdOut },
-				stderr: { write: this.onStdErr }
-			});
+				stdout: {
+					write: data => this.writeOutput({ data, writeLine: false }),
+					writeLine: data => this.writeOutput({ data, writeLine: true })
+				},
+				stderr: {
+					write: data => this.writeOutput({ data, writeLine: false, outputType: ConsoleTextLineType.Error }),
+					writeLine: data => this.writeOutput({ data, writeLine: true, outputType: ConsoleTextLineType.Error })
+				}
+			} as ConsoleCommand);
 
 			clearTimeout(timeoutTimer);
 			resolve(exitCode);
