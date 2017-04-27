@@ -1,41 +1,30 @@
 import * as React from 'react';
 
-interface ConsoleStream {
-	write: (data: string) => Promise<void>;
-}
-
-interface ConsoleCommand {
-	input: string;
-	name: string;
-	args: string[];
-
-	stdout: ConsoleStream;
-	stderr: ConsoleStream;
-}
-
-interface ConsoleCommandResponse {
-
-}
-
 interface ConsoleProps extends React.Props<any> {
-	outputLines?: string[];
+	outputLines?: ConsoleTextLine[];
 	input?: string;
 	cursor?: string;
 	onCommandReceived?: (command: ConsoleCommand) => Promise<number>;
 }
 
 interface ConsoleState {
-	outputLines: string[];
+	outputLines: ConsoleTextLine[];
 	input: string;
 }
 
+interface ConsoleTextLine {
+	text: string;
+	className?: string;
+}
+
 const welcomeMessage = [
-	'### Welcome ###############################################',
-	'### Type \'help\' to see available commands. ################',
-	'###########################################################'
+	{ text: '### Welcome ###############################################' },
+	{ text: '### Type \'help\' to see available commands. ################' },
+	{ text: '###########################################################' }
 ];
 
 export default class Console extends React.Component<ConsoleProps, ConsoleState> {
+	private formElement: HTMLFormElement;
 	private cursorElement: HTMLLabelElement;
 	private inputElement: HTMLInputElement;
 
@@ -52,10 +41,10 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 	}
 
 	public render(): JSX.Element {
-		const outputHtml = this.state.outputLines.map((line, index) => (<div key={ index }>{ line }</div>));
+		const outputHtml = this.state.outputLines.map((line, index) => (<div key={ index } className={ line.className }>{ line.text }</div>));
 
 		return (
-			<form onClick={ this.onFocus } onSubmit={ this.onInput }>
+			<form onClick={ this.onFocus } onSubmit={ this.onInput } ref={ el => { this.formElement = el; } }>
 				<div className="output">
 					{ outputHtml }
 				</div>
@@ -78,7 +67,7 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 		this.cursorElement.style.visibility = 'hidden';
 
 		const input = this.inputElement.value;
-		this.onStdOut(`${this.cursor} ${input}`);
+		await this.onStdOut(`${this.cursor} ${input}`);
 		this.inputElement.value = '';
 
 		await this.sendCommand(input);
@@ -89,11 +78,22 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 	};
 
 	private onStdOut = async (data: string): Promise<void> => {
-		this.setState({ outputLines: this.state.outputLines.concat([ data ]) });
+		const dataLine = {
+			text: data
+		};
+
+		this.setState(state => ({ outputLines: state.outputLines.concat([ dataLine ]) }));
+		this.formElement.scrollTop = this.formElement.scrollHeight;
 	};
 
 	private onStdErr = async (data: string): Promise<void> => {
-		this.setState({ outputLines: this.state.outputLines.concat([ data ]) });
+		const dataLine = {
+			className: 'error',
+			text: data
+		};
+
+		this.setState(state => ({ outputLines: state.outputLines.concat([ dataLine ]) }));
+		this.formElement.scrollTop = this.formElement.scrollHeight;
 	};
 
 	private sendCommand = (input: string): Promise<number> => {

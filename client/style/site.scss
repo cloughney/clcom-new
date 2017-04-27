@@ -144,7 +144,9 @@ body {
 							font-size: 1.1em;
 
 							.output {
-
+								.error {
+									color: red;
+								}
 							}
 
 							.input-line {

@@ -8,27 +8,24 @@ import Console from './console/index';
 
 //const stateStore = createStore<{AppState}>(reducer);
 
+const commands = new Map<string, (command: any) => Promise<number>>();
+commands.set('help', cmd => new Promise<number>(resolve => {
+	cmd.stdout.write('HELP!');
+	resolve(0);
+}));
+
+const exeNotFound = cmd => new Promise<number>(resolve => {
+	cmd.stderr.write(`'${cmd.name}' is not a valid command.`);
+	resolve(1);
+});
+
 //<Provider store={stateStore}>
 //</Provider>,
  ReactDOM.render(
 	<Console onCommandReceived={
 		(command) => {
-			console.dir(command);
-			return new Promise<number>(resolve => {
-				let count = 3;
-				const timer = setInterval(() => {
-					if (count > 1) {
-						command.stdout.write('working...');
-					} else if (count > 0) {
-						command.stdout.write('done');
-					} else {
-						clearInterval(timer);
-						resolve(0);
-					}
-
-					count--;
-				}, 1000);
-			});
+			let exe = commands.get(command.name) || exeNotFound;
+			return exe(command);
 		}
 	} />,
 	document.getElementById('app'));
