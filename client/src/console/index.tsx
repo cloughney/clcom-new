@@ -30,7 +30,7 @@ const welcomeMessage = [
 ];
 
 export default class Console extends React.Component<ConsoleProps, ConsoleState> {
-	private formElement: HTMLFormElement;
+	private containerElement: HTMLDivElement;
 	private cursorElement: HTMLLabelElement;
 	private inputElement: HTMLInputElement;
 
@@ -59,20 +59,22 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 		});
 
 		return (
-			<form onClick={ this.focusInput } onSubmit={ this.onInput } ref={ el => { this.formElement = el; } }>
-				<div className="output">
-					{ outputHtml }
-				</div>
-				<div className="input-line">
-					<label ref={ el => { this.cursorElement = el; } }>{ this.cursor }</label>
-					<input type="text" ref={ el => { this.inputElement = el; } } />
-				</div>
-			</form>
+			<div onClick={ this.focusInput } ref={ el => { this.containerElement = el; } }>
+				<form onSubmit={ this.onInput }>
+					<div className="output">
+						{ outputHtml }
+					</div>
+					<div className="input-line">
+						<label ref={ el => { this.cursorElement = el; } }>{ this.cursor }</label>
+						<input type="text" ref={ el => { this.inputElement = el; } } />
+					</div>
+				</form>
+			</div>
 		);
 	}
 
 	private focusInput = (): void => {
-		this.formElement.scrollTop = this.formElement.scrollHeight;
+		this.containerElement.scrollTop = this.containerElement.scrollHeight;
 		this.inputElement.focus();
 	};
 
