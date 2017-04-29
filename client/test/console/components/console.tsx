@@ -4,15 +4,28 @@ import { mount } from 'enzyme';
 import Console from '../../../src/console/components/console';
 
 describe('<Console />', () => {
-	it('displays input', () => {
-		const input = 'test string';
-		const wrapper = mount(<Console />);
+	let componentWrapper: any;
+	let componentInstance: Console;
+	let formElement: any;
+	let inputElement: any;
+	let cursorElement: any;
 
-		wrapper.setState({ input });
-		wrapper.find('form').simulate('submit');
-
-		waits(1000);
-		expect(wrapper.find('.output').children().last().text()).toBe(input);
+	beforeEach(() => {
+		componentWrapper = mount(<Console />);
+		componentInstance = componentWrapper.instance() as Console;
+		formElement = componentWrapper.find('form');
+		inputElement = formElement.find('input');
+		cursorElement = formElement.find('label');
 	});
 
+	it('renders the input a user submits in the output pane', () => {
+		const input = 'test string';
+
+		//need to find a better way to input text...
+		(inputElement as any).node.value = input;
+		formElement.simulate('submit');
+
+		const outputLines = componentWrapper.find('.output').children();
+		expect(outputLines.last().text()).toBe(`${componentInstance.cursor} ${input}`);
+	});
 });

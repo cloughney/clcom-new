@@ -34,16 +34,16 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 	private cursorElement: HTMLLabelElement;
 	private inputElement: HTMLInputElement;
 
-	private get cursor(): string {
-		return this.props.cursor || '$>';
-	}
-
 	public constructor(props: ConsoleProps) {
 		super(props);
 		this.state = {
 			outputLines: props.outputLines || welcomeMessage,
 			input: props.input || ''
 		};
+	}
+
+	public get cursor(): string {
+		return this.props.cursor || '$>';
 	}
 
 	public render(): JSX.Element {
