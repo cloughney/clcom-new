@@ -48,7 +48,8 @@ const corePlugins = [
 ];
 
 let envPlugins = [];
-const devTools = [];
+let devTools = [];
+let externals = [];
 
 if (!isTesting) {
 	envPlugins = envPlugins.concat([
@@ -76,6 +77,13 @@ if (!isTesting) {
 			{ from: 'images', to: 'images' }
 		])
 	]);
+} else {
+	externals = {
+	  'cheerio': 'window',
+	  'react/addons': 'react',
+	  'react/lib/ExecutionEnvironment': 'react',
+	  'react/lib/ReactContext': 'react',
+	}
 }
 
 module.exports = {
@@ -125,6 +133,8 @@ module.exports = {
 
 	plugins: corePlugins.concat(envPlugins),
 	devtool: devTools.join(','),
+	externals,
+
 	devServer: {
 		contentBase: 'dist/',
 		compress: false,

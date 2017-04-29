@@ -1,19 +1,18 @@
 import * as React from 'react';
-import { assert } from 'chai';
-import { ShallowRenderer, createRenderer } from 'react-test-renderer/shallow';
+import { mount } from 'enzyme';
 
 import Console from '../../../src/console/components/console';
 
-describe('The Console component', () => {
-	let renderer: ShallowRenderer;
+describe('<Console />', () => {
+	it('displays input', () => {
+		const input = 'test string';
+		const wrapper = mount(<Console />);
 
-	beforeEach(() => {
-		renderer = createRenderer();
-		renderer.render(<Console />);
-	});
+		wrapper.setState({ input });
+		wrapper.find('form').simulate('submit');
 
-	it('test', () => {
-		var test = renderer.getRenderOutput();
+		waits(1000);
+		expect(wrapper.find('.output').children().last().text()).toBe(input);
 	});
 
 });

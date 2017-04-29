@@ -1,13 +1,12 @@
 {
     "compilerOptions": {
 		"target": "es2015",
-		"module": "commonjs",
         "noImplicitAny": true,
         "removeComments": true,
         "preserveConstEnums": true,
         "sourceMap": false,
 		"jsx": "react",
-		"baseUrl": "src"
+		"baseUrl": "./src"
     },
 	"compileOnSave": false
 }

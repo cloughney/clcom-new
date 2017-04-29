@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 //import { createStore, applyMiddleware } from 'redux';
 //import { Provider } from 'react-redux';
 
@@ -27,7 +27,7 @@ const exeNotFound = async (cmd: ConsoleCommand) => {
 
 //<Provider store={stateStore}>
 //</Provider>,
- ReactDOM.render(
+ render(
 	<Console onCommandReceived={
 		(command) => {
 			let exe = commands.get(command.name) || exeNotFound;
