@@ -20,7 +20,7 @@ commands.set('clear', async cmd => {
 	return Promise.resolve(0);
 });
 
-const exeNotFound = async cmd => {
+const exeNotFound = async (cmd: ConsoleCommand) => {
 	await cmd.stderr.writeLine(`'${cmd.name}' is not a valid command.`);
 	return Promise.resolve(1);
 };

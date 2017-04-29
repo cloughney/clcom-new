@@ -44,21 +44,21 @@ const entries = isTesting ? undefined : {
 const corePlugins = [
 	new webpack.LoaderOptionsPlugin({
 		debug: isDevelopment
-	}),
-	new webpack.ProvidePlugin({
-		'regeneratorRuntime': 'regenerator-runtime',
-		//'Promise': 'bluebird', // because Edge browser has slow native Promise object
-		//'$': 'jquery', // because 'bootstrap' by Twitter depends on this
-		//'jQuery': 'jquery',
-		//'window.jQuery': 'jquery' // this doesn't expose jQuery property for window, but exposes it to every module
 	})
 ];
 
-const envPlugins = [];
+let envPlugins = [];
 const devTools = [];
 
 if (!isTesting) {
-	envPlugins.concat([
+	envPlugins = envPlugins.concat([
+		new webpack.ProvidePlugin({
+			'regeneratorRuntime': 'regenerator-runtime',
+			//'Promise': 'bluebird', // because Edge browser has slow native Promise object
+			//'$': 'jquery', // because 'bootstrap' by Twitter depends on this
+			//'jQuery': 'jquery',
+			//'window.jQuery': 'jquery' // this doesn't expose jQuery property for window, but exposes it to every module
+		}),
 		new HtmlWebpackPlugin({
 			title: title,
 			template: 'index.ejs',
