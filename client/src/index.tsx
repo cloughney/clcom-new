@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 //import { createStore, applyMiddleware } from 'redux';
 //import { Provider } from 'react-redux';
 
-import Console from './console/index';
+import Console from './console/components/console';
 //import { reducer } from './common/reducers';
 
 //const stateStore = createStore<{AppState}>(reducer);

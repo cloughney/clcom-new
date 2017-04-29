@@ -11,7 +11,7 @@ const project = require('./package.json');
 
 const ENV = process.env.NODE_ENV && process.env.NODE_ENV.toLowerCase() || 'development';
 const ENV_DEVELOPMENT = 'development';
-const ENV_TESTING = 'testing';
+const ENV_TESTING = 'test';
 const ENV_PRODUCTION = 'production';
 
 const isDevelopment = ENV === ENV_DEVELOPMENT;
@@ -36,7 +36,7 @@ const bootstrapPackages = [
 	'react-redux'
 ];
 
-const entries = isTesting ? {} : {
+const entries = isTesting ? undefined : {
 	'app': ['./src/index'],
 	'bootstrap': bootstrapPackages
 };
@@ -51,41 +51,31 @@ const corePlugins = [
 		//'$': 'jquery', // because 'bootstrap' by Twitter depends on this
 		//'jQuery': 'jquery',
 		//'window.jQuery': 'jquery' // this doesn't expose jQuery property for window, but exposes it to every module
-	}),
-	new HtmlWebpackPlugin({
-		title: title,
-		template: 'index.ejs',
-		chunksSortMode: 'dependency'
-	}),
-	new ExtractTextPlugin({
-		filename: 'style.css',
-		allChunks: true
-	}),
-	new CopyWebpackPlugin([
-		//{ from: 'favicon.ico', to: 'favicon.ico' },
-		{ from: 'images', to: 'images' }
-	]),
-	new webpack.optimize.CommonsChunkPlugin({
-		name: ['app', 'bootstrap']
 	})
 ];
 
-let envPlugins = [];
-let devTools = [];
+const envPlugins = [];
+const devTools = [];
 
-switch (ENV) {
-	case ENV_DEVELOPMENT:
-		envPlugins = [];
-		devTools = ['#source-maps'];
-		break;
-	case ENV_TESTING:
-		envPlugins = [];
-		devTools = [];
-		break;
-	case ENV_PRODUCTION:
-		envPlugins = [];
-		devTools = [];
-		break;
+if (!isTesting) {
+	envPlugins.concat([
+		new HtmlWebpackPlugin({
+			title: title,
+			template: 'index.ejs',
+			chunksSortMode: 'dependency'
+		}),
+		new ExtractTextPlugin({
+			filename: 'style.css',
+			allChunks: true
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: ['app', 'bootstrap']
+		}),
+		new CopyWebpackPlugin([
+			//{ from: 'favicon.ico', to: 'favicon.ico' },
+			{ from: 'images', to: 'images' }
+		])
+	]);
 }
 
 module.exports = {
