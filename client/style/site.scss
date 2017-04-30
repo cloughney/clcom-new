@@ -6,13 +6,13 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/'; //css-loader cwd is 
 
 @import 'material/card.scss';
 
-$color-primary: hsl(88deg, 100%, 30%);
+$color-primary: hsl(190deg, 100%, 30%);
 $color-primary-alt: desaturate($color-primary, 30%);
 
 $color-secondary: hsl(23deg, 100%, 78%);
 $color-secondary-alt: desaturate($color-secondary, 30%);
 
-$color-background: hsl(88deg, 62%, 96%);
+$color-background: hsl(190deg, 62%, 96%);
 
 $title-size: 2em;
 $menu-size: 1.3em;

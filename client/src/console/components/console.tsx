@@ -10,6 +10,7 @@ interface ConsoleProps extends React.Props<any> {
 interface ConsoleState {
 	outputLines: ConsoleTextLine[];
 	input: string;
+	isWorking: boolean;
 }
 
 interface ConsoleTextLine {
@@ -31,14 +32,14 @@ const welcomeMessage = [
 
 export default class Console extends React.Component<ConsoleProps, ConsoleState> {
 	private containerElement: HTMLDivElement;
-	private cursorElement: HTMLLabelElement;
 	private inputElement: HTMLInputElement;
 
 	public constructor(props: ConsoleProps) {
 		super(props);
 		this.state = {
 			outputLines: props.outputLines || welcomeMessage,
-			input: props.input || ''
+			input: props.input || '',
+			isWorking: false
 		};
 	}
 
@@ -64,9 +65,12 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 					<div className="output">
 						{ outputHtml }
 					</div>
-					<div className="input-line">
-						<label ref={ el => { this.cursorElement = el; } }>{ this.cursor }</label>
-						<input type="text" ref={ el => { this.inputElement = el; } } />
+					<div className="input-line" style={ { visibility: this.state.isWorking ? 'hidden' : 'visible' } }>
+						<label>{ this.cursor }</label>
+						<input type="text"
+							ref={ el => { this.inputElement = el; } }
+							onChange={ e => { this.setState({ input: e.target.value }); } }
+							value={ this.state.input } />
 					</div>
 				</form>
 			</div>
@@ -81,21 +85,22 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 	private onInput = async (e: React.FormEvent<any>): Promise<void> => {
 		e.preventDefault();
 
-		this.inputElement.style.visibility = 'hidden';
-		this.cursorElement.style.visibility = 'hidden';
-
-		const input = this.inputElement.value;
-		this.inputElement.value = '';
+		const input = this.state.input;
+		this.setState({ isWorking: true, input: '' });
 
 		await this.writeOutput({ data: `${this.cursor} ${input}`, writeLine: true, forceNewLine: true });
 		await this.sendCommand(input);
 
-		this.cursorElement.style.visibility = 'visible';
-		this.inputElement.style.visibility = 'visible';
+		this.setState({ isWorking: false });
 		this.focusInput();
 	};
 
-	private writeOutput = async (params: {
+	private writeOutput = async ({
+		data,
+		writeLine = false,
+		forceNewLine = false,
+		outputType = ConsoleTextLineType.Standard
+	}: {
 		data: string;
 		writeLine?: boolean;
 		forceNewLine?: boolean;
@@ -105,18 +110,18 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 		this.setState(state => {
 			const outputLines = state.outputLines;
 			const currentLine: ConsoleTextLine = outputLines.length !== 0 ? outputLines[outputLines.length - 1] : undefined;
-			const writeNewLine = !currentLine || currentLine.hasEol || params.forceNewLine;
+			const writeNewLine = !currentLine || currentLine.hasEol || forceNewLine;
 
 			if (writeNewLine) {
 				outputLines.push({
-					text: params.data,
-					type: params.outputType,
-					hasEol: params.writeLine
+					text: data,
+					type: outputType,
+					hasEol: writeLine
 				});
 			} else {
-				currentLine.text += params.data;
-				currentLine.type = params.outputType;
-				currentLine.hasEol = params.writeLine;
+				currentLine.text += data;
+				currentLine.type = outputType;
+				currentLine.hasEol = writeLine;
 			}
 
 			if (outputLines.length > 100) {
