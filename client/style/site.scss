@@ -18,7 +18,7 @@ $title-size: 2em;
 $menu-size: 1.3em;
 
 body {
-	background: $color-background;
+	background: #eee;
 	padding: 0;
 	margin: 0;
 	height: 100%;
@@ -26,52 +26,107 @@ body {
 	font-family: 'Source Sans Pro';
 
 	> header {
-		padding: 10px 0;
-		margin: 0;
-		//background: $color-background;
-		text-shadow: 1px 1px 1px #ddd;
+		background: #5e646d;
 
-		a {
-			color: $color-primary;
-			transition: 250ms;
+		div.menu {
+			@extend .container;
 
-			&, &:visited, &:active, &:hover {
-				text-decoration: none;
+			padding: 20px 0;
+			text-shadow: 1px 1px 1px #444;
+
+			a {
+				color: #ddd;
+				transition: 250ms;
+
+				&, &:visited, &:active, &:hover {
+					text-decoration: none;
+				}
+
+				&:hover {
+					color: lighten(#ddd, 10%);
+				}
 			}
 
-			&:hover {
-				color: lighten($color-primary, 5%);
+			> h1 {
+				float: left;
+				margin: 0;
+
+				font-size: $title-size;
+				color: $color-primary;
+			}
+
+			> ul {
+				@extend .list-unstyled, .list-inline;
+				float: right;
+				margin: 0;
+
+				li {
+					font-size: $menu-size;
+					line-height: $title-size;
+
+					&:not(:last-of-type) {
+						padding-right: 20px;
+					}
+
+					&:first-of-type {
+						a {
+							color: rgb(255, 151, 42);
+
+							&:hover {
+								color: lighten(#ddd, 10%);
+							}
+						}
+					}
+				}
 			}
 		}
 
-		> h1 {
-			float: left;
-			margin: 0;
+		div.banner {
+			$banner-height: 225px;
 
-			font-size: $title-size;
-			color: $color-primary;
-		}
+			@extend .clearfix;
 
-		> ul {
-			@extend .list-unstyled, .list-inline;
-			float: right;
-			margin: 0;
+			height: $banner-height;
+			padding: 0;
+			margin: 0 0 ($banner-height - 130) 0;
+			background: #333;
+			color: #ddd;
 
-			li {
-				font-size: $menu-size;
-				line-height: $title-size;
+			div.bio {
+				@extend .container;
 
-				&:not(:last-of-type) {
-					padding-right: 20px;
+				div.image {
+					@extend .col-lg-4;
+					@extend .col-md-12;
+
+					img {
+						@extend .img-responsive;
+						// float: left;
+						// width: $banner-height + 100;
+						// height: $banner-height + 100;
+						margin: -35px 0 0 50px;
+						border-radius: 50%;
+					}
+				}
+
+				div.featured {
+					@extend .col-lg-8, .hidden-md, .hidden-sm, .hidden-xs;
+
+					div.console {
+						height: $banner-height - 50;
+						margin: 25px 0 0 50px;
+						padding: 10px;
+
+						background: #222;
+					}
 				}
 			}
 		}
 	}
 
-	> div.container {
+	div.content {
 		margin-bottom: 50px;
 		padding-bottom: 15px;
-		//background: $color-background;
 		height: 100%;
 
 		.feed {
@@ -79,7 +134,7 @@ body {
 			$feed-col-size: 6;
 
 			li {
-				@extend .col-md-#{$feed-col-size};
+				@extend .col-xs-#{$feed-col-size};
 				padding: 5px 2px;
 
 				> .card {

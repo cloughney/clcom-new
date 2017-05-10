@@ -5,23 +5,37 @@
 		<title><%= htmlWebpackPlugin.options.title %></title>
 	</head>
 	<body>
-		<header class="container">
-			<h1>
-				<a href="">Chris Loughney</a>
-			</h1>
-			<ul>
-				<li>
-					<a href="#">Blog</a>
-				</li>
-				<li>
-					<a href="#">Playground</a>
-				</li>
-				<li>
-					<a href="#">Resume</a>
-				</li>
-			</ul>
+		<header>
+			<div class="menu">
+				<h1>
+					<a href="">Chris Loughney</a>
+				</h1>
+				<ul>
+					<li>
+						<a href="//blog.chrisloughney.com">Blog</a>
+					</li>
+					<li>
+						<a href="#">Playground</a>
+					</li>
+					<li>
+						<a href="#">Resume</a>
+					</li>
+				</ul>
+			</div>
+			<div class="banner">
+				<div class="bio">
+					<div class="image">
+						<img src="images/me.png" />
+					</div>
+					<div class="featured">
+						<div class="console" id="app">
+							$&gt; test
+						</div>
+					</div>
+				</div>
+			</div>
 		</header>
-		<div class="container">
+		<div class="content container">
 			<section class="feed">
 				<ul class="list-inline list-unstyled">
 					<li>
@@ -44,11 +58,6 @@
 									test
 								</section>
 							</article>
-						</div>
-					</li>
-					<li class="colspan-2">
-						<div class="card layer-2 flat console" id="app">
-							
 						</div>
 					</li>
 					<li>

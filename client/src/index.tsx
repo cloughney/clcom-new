@@ -27,11 +27,11 @@ const exeNotFound = async (cmd: ConsoleCommand) => {
 
 //<Provider store={stateStore}>
 //</Provider>,
- render(
-	<Console onCommandReceived={
-		(command) => {
-			let exe = commands.get(command.name) || exeNotFound;
-			return exe(command);
-		}
-	} />,
-	document.getElementById('app'));
+ // render(
+ // <Console onCommandReceived={
+ // 	(command) => {
+ // 		let exe = commands.get(command.name) || exeNotFound;
+ // 		return exe(command);
+ // 	}
+ // } />,
+ // document.getElementById('app'));
