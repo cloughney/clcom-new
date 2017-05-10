@@ -4,8 +4,6 @@ $icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/'; //css-loader cwd is 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 
-@import 'material/card.scss';
-
 $color-primary: hsl(190deg, 100%, 30%);
 $color-primary-alt: desaturate($color-primary, 30%);
 
@@ -17,6 +15,9 @@ $color-background: hsl(190deg, 62%, 96%);
 $title-size: 2em;
 $menu-size: 1.3em;
 
+@import 'material/card.scss';
+@import 'header.scss';
+
 body {
 	background: #eee;
 	padding: 0;
@@ -24,105 +25,6 @@ body {
 	height: 100%;
 
 	font-family: 'Source Sans Pro';
-
-	> header {
-		background: #5e646d;
-
-		div.menu {
-			@extend .container;
-
-			padding: 20px 0;
-			text-shadow: 1px 1px 1px #444;
-
-			a {
-				color: #ddd;
-				transition: 250ms;
-
-				&, &:visited, &:active, &:hover {
-					text-decoration: none;
-				}
-
-				&:hover {
-					color: lighten(#ddd, 10%);
-				}
-			}
-
-			> h1 {
-				float: left;
-				margin: 0;
-
-				font-size: $title-size;
-				color: $color-primary;
-			}
-
-			> ul {
-				@extend .list-unstyled, .list-inline;
-				float: right;
-				margin: 0;
-
-				li {
-					font-size: $menu-size;
-					line-height: $title-size;
-
-					&:not(:last-of-type) {
-						padding-right: 20px;
-					}
-
-					&:first-of-type {
-						a {
-							color: rgb(255, 151, 42);
-
-							&:hover {
-								color: lighten(#ddd, 10%);
-							}
-						}
-					}
-				}
-			}
-		}
-
-		div.banner {
-			$banner-height: 225px;
-
-			@extend .clearfix;
-
-			height: $banner-height;
-			padding: 0;
-			margin: 0 0 ($banner-height - 130) 0;
-			background: #333;
-			color: #ddd;
-
-			div.bio {
-				@extend .container;
-
-				div.image {
-					@extend .col-lg-4;
-					@extend .col-md-12;
-
-					img {
-						@extend .img-responsive;
-						// float: left;
-						// width: $banner-height + 100;
-						// height: $banner-height + 100;
-						margin: -35px 0 0 50px;
-						border-radius: 50%;
-					}
-				}
-
-				div.featured {
-					@extend .col-lg-8, .hidden-md, .hidden-sm, .hidden-xs;
-
-					div.console {
-						height: $banner-height - 50;
-						margin: 25px 0 0 50px;
-						padding: 10px;
-
-						background: #222;
-					}
-				}
-			}
-		}
-	}
 
 	div.content {
 		margin-bottom: 50px;
@@ -172,63 +74,6 @@ body {
 								@extend .col-md-7, .col-sm-12;
 								padding: 0 10px;
 								font-size: 1.2em;
-							}
-						}
-					}
-
-					&.console {
-						position: relative;
-
-						cursor: text;
-						border: 1px solid #666;
-
-						> div {
-							position: absolute;
-							top: 0; bottom: 0; left: 0; right: 0;
-							padding: 5px;
-							overflow-x: hidden;
-							overflow-y: auto;
-							word-wrap: break-word;
-							word-break: break-all;
-
-							background: #000;
-							color: #fff;
-							font-family: 'Inconsolata';
-							font-size: 1.1em;
-
-							> form {
-
-							}
-
-							.output {
-								.error {
-									color: red;
-								}
-							}
-
-							.input-line {
-								display: table;
-								width: 100%;
-
-								> label {
-									display: table-cell;
-									width: 1px;
-									font-weight: normal;
-
-									&::after {
-										content: '\00a0';
-									}
-								}
-
-								> input {
-									display: table-cell;
-									padding: 0;
-									margin-left: -1px;
-									width: 100%;
-									background: black;
-									border: none;
-									outline: none;
-								}
 							}
 						}
 					}

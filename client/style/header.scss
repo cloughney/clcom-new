@@ -1,0 +1,104 @@
+$banner-height: 225px;
+$banner-margin-bottom: 10px;
+$banner-img-size: 350px;
+$banner-img-offset-x: 65px;
+$banner-img-offset-y: -35px;
+
+@import 'console.scss';
+
+body {
+	> header {
+		margin-bottom: ($banner-img-size + $banner-img-offset-y - $banner-height + $banner-margin-bottom);
+		background: #5e646d;
+
+		div.menu {
+			@extend .container;
+
+			padding: 20px 0;
+			text-shadow: 1px 1px 1px #444;
+
+			a {
+				color: #ddd;
+				transition: 250ms;
+
+				&, &:visited, &:active, &:hover {
+					text-decoration: none;
+				}
+
+				&:hover {
+					color: lighten(#ddd, 10%);
+				}
+			}
+
+			> h1 {
+				float: left;
+				margin: 0;
+
+				font-size: $title-size;
+				color: $color-primary;
+			}
+
+			> ul {
+				@extend .list-unstyled, .list-inline;
+				float: right;
+				margin: 0;
+
+				li {
+					font-size: $menu-size;
+					line-height: $title-size;
+
+					&:not(:last-of-type) {
+						padding-right: 20px;
+					}
+
+					&:first-of-type {
+						a {
+							color: rgb(255, 151, 42);
+
+							&:hover {
+								color: lighten(#ddd, 10%);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		div.banner {
+			@extend .clearfix;
+
+			height: $banner-height;
+			padding: 0;
+			margin: 0;
+			background: #333;
+			color: #ddd;
+
+			div.bio {
+				@extend .container;
+
+				div.image {
+					@extend .col-lg-4, .col-md-5;
+
+					img {
+						@extend .img-circle;
+
+						display: block;
+						width: $banner-img-size;
+						height: $banner-img-size;
+						margin: $banner-img-offset-y 0 0 $banner-img-offset-x;
+					}
+				}
+
+				div.featured {
+					@extend .col-lg-8, .col-md-7, .hidden-sm, .hidden-xs;
+
+					div.console {
+						height: $banner-height - 50;
+						margin: 25px $banner-img-offset-x 0 $banner-img-offset-x;
+						padding: 10px;
+					}
+				}
+			}
+		}
+	}
+}

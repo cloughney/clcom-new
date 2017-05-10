@@ -19,16 +19,10 @@ interface ConsoleTextLine {
 	hasEol: boolean;
 }
 
-enum ConsoleTextLineType {
+export enum ConsoleTextLineType {
 	Standard,
 	Error
 }
-
-const welcomeMessage = [
-	{ text: '### Welcome ###############################################', type: ConsoleTextLineType.Standard, hasEol: true },
-	{ text: '### Type \'help\' to see available commands. ################', type: ConsoleTextLineType.Standard, hasEol: true },
-	{ text: '###########################################################', type: ConsoleTextLineType.Standard, hasEol: true }
-];
 
 export default class Console extends React.Component<ConsoleProps, ConsoleState> {
 	private containerElement: HTMLDivElement;
@@ -37,7 +31,7 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 	public constructor(props: ConsoleProps) {
 		super(props);
 		this.state = {
-			outputLines: props.outputLines || welcomeMessage,
+			outputLines: props.outputLines || [],
 			input: props.input || '',
 			isWorking: false
 		};
