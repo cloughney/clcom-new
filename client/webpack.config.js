@@ -77,12 +77,16 @@ if (!isTesting) {
 			{ from: 'images', to: 'images' }
 		])
 	]);
+
+	if (isProduction) {
+		envPlugins = envPlugins.concat([new webpack.optimize.UglifyJsPlugin()]);
+	}
 } else {
 	externals = {
-	  'cheerio': 'window',
-	  'react/addons': 'react',
-	  'react/lib/ExecutionEnvironment': 'react',
-	  'react/lib/ReactContext': 'react',
+		'cheerio': 'window',
+		'react/addons': 'react',
+		'react/lib/ExecutionEnvironment': 'react',
+		'react/lib/ReactContext': 'react',
 	}
 }
 
