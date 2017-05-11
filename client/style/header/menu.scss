@@ -1,0 +1,56 @@
+body {
+	> header {
+		div.menu {
+			@extend .container;
+
+			padding: 20px 0;
+			text-shadow: 1px 1px 1px #444;
+
+			a {
+				color: #ddd;
+				transition: 250ms;
+
+				&, &:visited, &:active, &:hover {
+					text-decoration: none;
+				}
+
+				&:hover {
+					color: lighten(#ddd, 10%);
+				}
+			}
+
+			> h1 {
+				float: left;
+				margin: 0;
+
+				font-size: $title-size;
+				color: $color-primary;
+			}
+
+			> ul {
+				@extend .list-unstyled, .list-inline;
+				float: right;
+				margin: 0;
+
+				li {
+					font-size: $menu-size;
+					line-height: $title-size;
+
+					&:not(:last-of-type) {
+						padding-right: 20px;
+					}
+
+					&:first-of-type {
+						a {
+							color: rgb(255, 151, 42);
+
+							&:hover {
+								color: lighten(#ddd, 10%);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

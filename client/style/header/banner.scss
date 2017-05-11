@@ -1,0 +1,66 @@
+body {
+	> header {
+		div.banner {
+			@extend .clearfix;
+
+			height: $banner-height;
+			padding: 0;
+			margin: 0;
+			background: #333;
+			color: #ddd;
+
+			transition: height 500ms;
+
+			div.bio {
+				@extend .container;
+
+				div.image {
+					@extend .col-lg-4, .col-md-5, .col-sm-12;
+
+					img {
+						@extend .img-circle;
+						transition: 500ms;
+
+						display: block;
+						width: $banner-img-size;
+						height: $banner-img-size;
+						margin: $banner-img-offset-y 0 0 $banner-img-offset-x;
+					}
+				}
+
+				div.featured {
+					@extend .col-lg-8, .col-md-7, .hidden-sm, .hidden-xs;
+					transition: visibility 0;
+
+					div.console {
+						height: $banner-height - 50;
+						margin: 25px $banner-img-offset-x 0 $banner-img-offset-x;
+						padding: 0 3px;
+					}
+				}
+			}
+
+			&.compress {
+				height: $banner-height - 125;
+
+				div.bio {
+					div.image {
+						@extend .col-lg-12, .col-md-12;
+
+						img {
+							width: $banner-img-size - 125;
+							height: $banner-img-size - 125;
+							margin: ($banner-img-offset-y - 20) auto 0;
+						}
+					}
+
+					div.featured {
+						transition: visibility 500ms;
+						position: absolute;
+						visibility: hidden;
+					}
+				}
+			}
+		}
+	}
+}

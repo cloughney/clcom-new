@@ -59,7 +59,7 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 					<div className="output">
 						{ outputHtml }
 					</div>
-					<div className="input-line" style={ { visibility: this.state.isWorking ? 'hidden' : 'visible' } }>
+					<div className="input-line" style={ { visibility: this.state.isWorking ? 'hidden' : 'inherit' } }>
 						<label>{ this.cursor }</label>
 						<input type="text"
 							ref={ el => { this.inputElement = el; } }

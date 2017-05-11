@@ -1,0 +1,15 @@
+$banner-height: 225px;
+$banner-margin-bottom: 10px;
+$banner-img-size: 350px;
+$banner-img-offset-x: 65px;
+$banner-img-offset-y: -35px;
+
+@import 'menu.scss';
+@import 'banner.scss';
+
+body {
+	> header {
+		margin-bottom: ($banner-img-size + $banner-img-offset-y - $banner-height + $banner-margin-bottom);
+		background: #5e646d;
+	}
+}

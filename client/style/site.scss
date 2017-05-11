@@ -16,7 +16,9 @@ $title-size: 2em;
 $menu-size: 1.3em;
 
 @import 'material/card.scss';
-@import 'header.scss';
+
+@import 'console.scss';
+@import 'header/header.scss';
 
 body {
 	background: #eee;
