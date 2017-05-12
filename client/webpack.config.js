@@ -31,13 +31,11 @@ const bootstrapPackages = [
 	'./style/site.scss',
 	'react',
 	'react-dom',
-	'react-router-dom',
-	'redux',
-	'react-redux'
+	'react-router-dom'
 ];
 
 const entries = isTesting ? undefined : {
-	'app': ['./src/index'],
+	'index': ['./src/index'],
 	'bootstrap': bootstrapPackages
 };
 
@@ -62,8 +60,19 @@ if (!isTesting) {
 		}),
 		new HtmlWebpackPlugin({
 			title: title,
-			template: 'index.ejs',
-			chunksSortMode: 'dependency'
+			filename: 'index.html',
+			template: 'html/index.ejs',
+			chunks: [ 'bootstrap', 'index' ],
+			chunksSortMode: 'dependency',
+			isDevelopment
+		}),
+		new HtmlWebpackPlugin({
+			title: title,
+			filename: 'playground.html',
+			template: 'html/playground.ejs',
+			chunks: [ 'bootstrap', 'index' ],
+			chunksSortMode: 'dependency',
+			isDevelopment
 		}),
 		new ExtractTextPlugin({
 			filename: 'style.css',
@@ -132,6 +141,10 @@ module.exports = {
 			test: /\.(png|jpe?g|gif|svg|eot|woff|woff2|ttf)(\?\S*)?$/,
 			//exclude: [path.resolve('node_modules')],
 			use: 'url-loader?limit=100000&name=[name].[ext]'
+		}, {
+			test: /\.ejs$/,
+			exclude: [path.resolve('node_modules')],
+			use: 'ejs-loader'
 		}]
 	},
 
