@@ -7,7 +7,7 @@
 		<title><%= htmlWebpackPlugin.options.title %></title>
 	</head>
 	<body>
-		<%= renderHeader({ compressHeader: false }) %>
+		<%= renderHeader({ compressHeader: false, linksUseExtension: htmlWebpackPlugin.options.header.linksUseExtension }) %>
 
 		<div class="content" />
 

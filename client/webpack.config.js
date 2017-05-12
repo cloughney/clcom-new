@@ -59,25 +59,34 @@ if (!isTesting) {
 			title: title,
 			filename: 'index.html',
 			template: 'html/index.ejs',
-			chunks: [ 'bootstrap', 'index' ],
+			chunks: ['bootstrap', 'index'],
 			chunksSortMode: 'dependency',
-			isDevelopment
+			isDevelopment,
+			header: {
+				linksUseExtension: !isProduction
+			}
 		}),
 		new HtmlWebpackPlugin({
 			title: title,
 			filename: 'playground.html',
 			template: 'html/playground.ejs',
-			chunks: [ 'bootstrap', 'playground' ],
+			chunks: ['bootstrap', 'playground'],
 			chunksSortMode: 'dependency',
-			isDevelopment
+			isDevelopment,
+			header: {
+				linksUseExtension: !isProduction
+			}
 		}),
 		new HtmlWebpackPlugin({
 			title: title,
 			filename: 'resume.html',
 			template: 'html/resume.ejs',
-			chunks: [ 'bootstrap' ],
+			chunks: ['bootstrap'],
 			chunksSortMode: 'dependency',
-			isDevelopment
+			isDevelopment,
+			header: {
+				linksUseExtension: !isProduction
+			}
 		}),
 		new ExtractTextPlugin({
 			filename: 'style.css',
