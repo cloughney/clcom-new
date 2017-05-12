@@ -64,3 +64,27 @@ body {
 		}
 	}
 }
+
+@media (max-width: $screen-xs-max) {
+	body {
+		> header {
+			div.banner {
+				height: $banner-height - 100;
+
+				div.bio {
+					div.image {
+						img {
+							width: $banner-img-size - 150;
+							height: $banner-img-size - 150;
+							margin: ($banner-img-offset-y + 20) auto 0;
+						}
+					}
+				}
+			}
+
+			&.compress {
+
+			}
+		}
+	}
+}

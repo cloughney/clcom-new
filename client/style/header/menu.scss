@@ -20,17 +20,20 @@ body {
 			}
 
 			> h1 {
-				float: left;
+				@extend .col-sm-6, .col-xs-12;
 				margin: 0;
+				padding: 0;
 
+				text-align: left;
 				font-size: $title-size;
 				color: $color-primary;
 			}
 
 			> ul {
-				@extend .list-unstyled, .list-inline;
-				float: right;
+				@extend .col-sm-6, .col-xs-12, .list-unstyled, .list-inline;
 				margin: 0;
+				padding: 0;
+				text-align: right;
 
 				li {
 					font-size: $menu-size;
@@ -49,6 +52,22 @@ body {
 							}
 						}
 					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: $screen-xs-max) {
+	body {
+		> header {
+			div.menu {
+				> h1 {
+					text-align: center;
+				}
+
+				> ul {
+					text-align: center;
 				}
 			}
 		}
