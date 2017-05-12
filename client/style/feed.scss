@@ -2,13 +2,12 @@ body {
 	div.content {
 		.feed {
 			@extend .container-fluid;
-			$feed-col-size: 6;
 
 			> ul {
 				@extend .list-inline, .list-unstyled;
 
 				li {
-					@extend .col-xs-#{$feed-col-size};
+					@extend .col-md-6, .col-xs-12;
 					padding: 5px 2px;
 
 					> .card {
@@ -52,7 +51,7 @@ body {
 					}
 
 					&.colspan-2 {
-						@extend .col-md-#{$feed-col-size * 2};
+						@extend .col-md-12;
 						padding: 0 2px;
 					}
 				}
