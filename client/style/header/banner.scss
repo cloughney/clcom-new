@@ -65,25 +65,41 @@ body {
 	}
 }
 
-@media (max-width: $screen-xs-max) {
+@media (max-width: $screen-sm-max) {
 	body {
 		> header {
 			div.banner {
-				height: $banner-height - 100;
-
 				div.bio {
 					div.image {
 						img {
-							width: $banner-img-size - 150;
-							height: $banner-img-size - 150;
-							margin: ($banner-img-offset-y + 20) auto 0;
+							margin: ($banner-img-offset-y) auto 0;
 						}
 					}
 				}
 			}
+		}
+	}
+}
 
-			&.compress {
+@media (max-width: $screen-xs-max) {
+	$banner-height: $banner-height - 100;
+	$banner-img-size: $banner-img-size - 150;
+	$banner-img-offset-y: $banner-img-offset-y + 20;
 
+	body {
+		> header {
+			div.banner, div.banner.compress {
+				height: $banner-height;
+
+				div.bio {
+					div.image {
+						img {
+							width: $banner-img-size;
+							height: $banner-img-size;
+							margin: ($banner-img-offset-y) auto 0;
+						}
+					}
+				}
 			}
 		}
 	}
