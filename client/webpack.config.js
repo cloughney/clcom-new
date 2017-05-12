@@ -36,6 +36,7 @@ const bootstrapPackages = [
 
 const entries = isTesting ? undefined : {
 	'index': ['./src/index'],
+	'playground': ['./src/playground'],
 	'bootstrap': bootstrapPackages
 };
 
@@ -52,11 +53,7 @@ let externals = [];
 if (!isTesting) {
 	envPlugins = envPlugins.concat([
 		new webpack.ProvidePlugin({
-			'regeneratorRuntime': 'regenerator-runtime',
-			//'Promise': 'bluebird', // because Edge browser has slow native Promise object
-			//'$': 'jquery', // because 'bootstrap' by Twitter depends on this
-			//'jQuery': 'jquery',
-			//'window.jQuery': 'jquery' // this doesn't expose jQuery property for window, but exposes it to every module
+			'regeneratorRuntime': 'regenerator-runtime'
 		}),
 		new HtmlWebpackPlugin({
 			title: title,
@@ -70,7 +67,15 @@ if (!isTesting) {
 			title: title,
 			filename: 'playground.html',
 			template: 'html/playground.ejs',
-			chunks: [ 'bootstrap', 'index' ],
+			chunks: [ 'bootstrap', 'playground' ],
+			chunksSortMode: 'dependency',
+			isDevelopment
+		}),
+		new HtmlWebpackPlugin({
+			title: title,
+			filename: 'resume.html',
+			template: 'html/resume.ejs',
+			chunks: [ 'bootstrap' ],
 			chunksSortMode: 'dependency',
 			isDevelopment
 		}),
@@ -154,7 +159,7 @@ module.exports = {
 
 	devServer: {
 		contentBase: 'dist/',
-		compress: false,
+		compress: true,
 		noInfo: true,
 		inline: true,
 		historyApiFallback: true
