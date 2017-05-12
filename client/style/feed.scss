@@ -1,0 +1,62 @@
+body {
+	div.content {
+		.feed {
+			@extend .container-fluid;
+			$feed-col-size: 6;
+
+			> ul {
+				@extend .list-inline, .list-unstyled;
+
+				li {
+					@extend .col-xs-#{$feed-col-size};
+					padding: 5px 2px;
+
+					> .card {
+						@extend .clearfix;
+						height: 205px;
+
+						&:not(.flat) {
+							cursor: pointer;
+						}
+
+						&.news {
+							padding: 10px 15px;
+
+							article {
+								@extend .clearfix;
+
+								> h1 {
+									@extend .col-md-12;
+									margin: 0 0 10px;
+									padding-bottom: 5px;
+
+									font-size: 1.5em;
+									color: #777;
+									border-bottom: 1px solid #eee;
+								}
+
+								> img {
+									@extend .col-md-5, .col-sm-12;
+									padding: 0;
+									max-width: 140px;
+									max-height: 140px;
+								}
+
+								> section {
+									@extend .col-md-7, .col-sm-12;
+									padding: 0 10px;
+									font-size: 1.2em;
+								}
+							}
+						}
+					}
+
+					&.colspan-2 {
+						@extend .col-md-#{$feed-col-size * 2};
+						padding: 0 2px;
+					}
+				}
+			}
+		}
+	}
+}
