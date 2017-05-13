@@ -1,0 +1,28 @@
+<header>
+	<div class="menu">
+		<h1>
+			<a href="{{ links.home }}">Chris Loughney</a>
+		</h1>
+		<ul>
+			<li>
+				<a href="{{ links.blog }}">Blog</a>
+			</li>
+			<li>
+				<a href="{{ links.playground }}">Playground</a>
+			</li>
+			<li>
+				<a href="{{ links.resume }}">Resume</a>
+			</li>
+		</ul>
+	</div>
+	<div class="banner {{# if compressBanner }}compress{{/ if }}">
+		<div class="bio">
+			<div class="image">
+				<img src="images/me.png" />
+			</div>
+			<div class="featured">
+				<div class="console" />
+			</div>
+		</div>
+	</div>
+</header>

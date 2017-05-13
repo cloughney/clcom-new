@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
-import Console from './console/components/console';
-import onCommandReceived, { welcomeMessage } from './console/handlers/default';
+import Console from '../console/components/console';
+import onCommandReceived, { welcomeMessage } from '../console/handlers/default';
 
-import Feed from './feed';
+import Feed from '../feed/feed';
 
 render(
 	<Console
