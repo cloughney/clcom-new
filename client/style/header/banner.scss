@@ -1,3 +1,18 @@
+@mixin banner-bio-image($isExpanded: false) {
+	$size: $banner-img-size;
+	$offset-x: $banner-img-offset-x;
+	$offset-y: $banner-img-offset-y;
+
+	@if $isExpanded == false {
+		$size: $size - 150;
+		$offset-x: $offset-x + 50;
+	}
+
+	width: $size;
+	height: $size;
+	margin: $offset-y 0 0 $offset-x;
+}
+
 body {
 	> header {
 		div.banner {
@@ -19,12 +34,10 @@ body {
 
 					img {
 						@extend .img-circle;
+						@include banner-bio-image(true);
 						transition: 500ms;
 
 						display: block;
-						width: $banner-img-size;
-						height: $banner-img-size;
-						margin: $banner-img-offset-y 0 0 $banner-img-offset-x;
 					}
 				}
 
@@ -48,9 +61,7 @@ body {
 						@extend .col-lg-12, .col-md-12;
 
 						img {
-							width: $banner-img-size - 125;
-							height: $banner-img-size - 125;
-							margin: ($banner-img-offset-y - 20) auto 0;
+							@include banner-bio-image(false);
 						}
 					}
 
@@ -66,13 +77,16 @@ body {
 }
 
 @media (max-width: $screen-sm-max) {
+	$banner-height: $banner-height - 100;
 	body {
 		> header {
-			div.banner {
+			div.banner, div.banner.compress {
+				height: $banner-height;
+
 				div.bio {
 					div.image {
 						img {
-							margin: ($banner-img-offset-y) auto 0;
+							@include banner-bio-image(false);
 						}
 					}
 				}
@@ -83,9 +97,6 @@ body {
 
 @media (max-width: $screen-xs-max) {
 	$banner-height: $banner-height - 100;
-	$banner-img-size: $banner-img-size - 150;
-	$banner-img-offset-y: $banner-img-offset-y + 20;
-
 	body {
 		> header {
 			div.banner, div.banner.compress {
@@ -94,9 +105,7 @@ body {
 				div.bio {
 					div.image {
 						img {
-							width: $banner-img-size;
-							height: $banner-img-size;
-							margin: ($banner-img-offset-y) auto 0;
+							margin: -25px 0 0 12%;
 						}
 					}
 				}
