@@ -113,3 +113,22 @@ body {
 		}
 	}
 }
+
+@media (max-width: ($screen-xs-max - 250)) {
+	$banner-height: $banner-height - 100;
+	body {
+		> header {
+			div.banner, div.banner.compress {
+				height: $banner-height;
+
+				div.bio {
+					div.image {
+						img {
+							margin-left: 0;
+						}
+					}
+				}
+			}
+		}
+	}
+}
