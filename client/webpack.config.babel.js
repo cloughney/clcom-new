@@ -69,7 +69,14 @@ if (env.isTesting) {
 	plugins.push.apply(plugins, getHtmlPlugins(env));
 
 	if (env.isProduction) {
-		plugins.push.apply(plugins, [new webpack.optimize.UglifyJsPlugin()]);
+		plugins.push.apply(plugins, [
+			new webpack.DefinePlugin({
+				'process.env': {
+					NODE_ENV: JSON.stringify('production')
+				}
+			}),
+			new webpack.optimize.UglifyJsPlugin()
+		]);
 	}
 }
 
