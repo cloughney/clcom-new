@@ -5,7 +5,7 @@ import * as path from 'path';
 
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
+//import { TsConfigPathsPlugin } from 'awesome-typescript-loader';
 
 import * as project from './package.json';
 
@@ -63,7 +63,7 @@ if (env.isTesting) {
 			//{ from: 'favicon.ico', to: 'favicon.ico' },
 			{ from: 'images', to: 'images' }
 		]),
-		new TsConfigPathsPlugin()
+		//new TsConfigPathsPlugin()
 	]);
 
 	plugins.push.apply(plugins, getHtmlPlugins(env));
@@ -119,11 +119,11 @@ module.exports = {
 			})
 		}, {
 			test: /\.hbs$/,
-			exclude: [ path.resolve('node_modules') ],
+			exclude: [path.resolve('node_modules')],
 			use: 'handlebars-loader'
 		}, {
 			test: /\.(png|jpe?g|gif|svg|eot|woff|woff2|ttf)(\?\S*)?$/,
-			include: [ path.resolve('node_modules/bootstrap') ],
+			include: [path.resolve('node_modules/bootstrap')],
 			use: {
 				loader: 'url-loader',
 				options: {
