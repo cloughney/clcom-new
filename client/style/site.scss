@@ -20,6 +20,7 @@ $menu-size: 1.3em;
 @import 'console.scss';
 @import 'header/header.scss';
 @import 'feed.scss';
+@import 'resume.scss';
 
 body {
 	background: #eee;
@@ -35,5 +36,11 @@ body {
 		margin-bottom: 50px;
 		padding-bottom: 15px;
 		height: 100%;
+
+		p {
+			font-size: 1.3em;
+			line-height: 1.5em;
+			word-spacing: 0.1em;
+		}
 	}
 }
