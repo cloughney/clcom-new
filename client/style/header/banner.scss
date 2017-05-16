@@ -24,8 +24,6 @@ body {
 			background: #333;
 			color: #ddd;
 
-			transition: height 500ms;
-
 			div.bio {
 				@extend .container;
 
@@ -35,7 +33,6 @@ body {
 					img {
 						@extend .img-circle;
 						@include banner-bio-image(true);
-						transition: 500ms;
 
 						display: block;
 					}
@@ -43,7 +40,6 @@ body {
 
 				div.featured {
 					@extend .col-lg-8, .col-md-7, .hidden-sm, .hidden-xs;
-					transition: visibility 0;
 
 					div.console {
 						height: $banner-height - 50;
@@ -66,7 +62,6 @@ body {
 					}
 
 					div.featured {
-						transition: visibility 500ms;
 						position: absolute;
 						visibility: hidden;
 					}
