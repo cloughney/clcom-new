@@ -130,7 +130,10 @@ module.exports = {
 			use: 'handlebars-loader'
 		}, {
 			test: /\.(png|jpe?g|gif|svg|eot|woff|woff2|ttf)(\?\S*)?$/,
-			include: [path.resolve('node_modules/bootstrap')],
+			include: [
+				path.resolve('node_modules/bootstrap'),
+				path.resolve('images')
+			],
 			use: {
 				loader: 'url-loader',
 				options: {

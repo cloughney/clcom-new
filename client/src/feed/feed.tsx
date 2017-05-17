@@ -7,10 +7,11 @@ export default function Feed(props: undefined): JSX.Element {
 				<li>
 					<div className="card layer-2 news">
 						<article>
-							<h1>Test Title</h1>
-							<img src="images/green.png" />
+							<div className="heading purple">
+								<h1>Showcase: Bash Shell in React</h1>
+							</div>
 							<section>
-								test
+								Play with a bash shell in the console!
 							</section>
 						</article>
 					</div>
@@ -18,10 +19,11 @@ export default function Feed(props: undefined): JSX.Element {
 				<li>
 					<div className="card layer-2 news">
 						<article>
-							<h1>Test Title</h1>
-							<img src="images/pink.png" />
+							<div className="heading green">
+								<h1>Showcase: Bash Shell in React</h1>
+							</div>
 							<section>
-								test
+								Play with a bash shell in the console!
 							</section>
 						</article>
 					</div>
@@ -29,10 +31,11 @@ export default function Feed(props: undefined): JSX.Element {
 				<li>
 					<div className="card layer-2 news">
 						<article>
-							<h1>Test Title</h1>
-							<img src="images/blue.png" />
+							<div className="heading red">
+								<h1>Showcase: Bash Shell in React</h1>
+							</div>
 							<section>
-								test
+								Play with a bash shell in the console!
 							</section>
 						</article>
 					</div>
@@ -40,10 +43,11 @@ export default function Feed(props: undefined): JSX.Element {
 				<li>
 					<div className="card layer-2 news">
 						<article>
-							<h1>Test Title</h1>
-							<img src="images/green.png" />
+							<div className="heading blue">
+								<h1>Showcase: Bash Shell in React</h1>
+							</div>
 							<section>
-								test
+								Play with a bash shell in the console!
 							</section>
 						</article>
 					</div>

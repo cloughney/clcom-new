@@ -12,38 +12,68 @@ body {
 
 					> .card {
 						@extend .clearfix;
-						height: 205px;
+						height: 275px;
 
 						&:not(.flat) {
 							cursor: pointer;
 						}
 
 						&.news {
-							padding: 10px 15px;
+							padding: 10px 12px;
 
 							article {
 								@extend .clearfix;
 
-								> h1 {
-									@extend .col-md-12;
-									margin: 0 0 10px;
-									padding-bottom: 5px;
-
-									font-size: 1.5em;
-									color: #777;
-									border-bottom: 1px solid #eee;
+								> img {
+									display: block;
+									width: 100%;
+									height: auto;
+									max-height: 200px;
+									padding: 0;
 								}
 
-								> img {
-									@extend .col-md-5, .col-sm-12;
-									padding: 0;
-									max-width: 140px;
-									max-height: 140px;
+								> div.heading {
+									position: relative;
+									width: 100%;
+									height: 200px;
+									background-repeat: no-repeat;
+									background-position: center 25px;
+
+									&.purple {
+										background-color: #667;
+										background-image: url('../images/icon-console.png');
+									}
+
+									&.green {
+										background-color: #667772;
+										background-image: url('../images/icon-console.png');
+									}
+
+									&.red {
+										background-color: #8a7373;
+										background-image: url('../images/icon-console.png');
+									}
+
+									&.blue {
+										background-color: #73828a;
+										background-image: url('../images/icon-console.png');
+									}
+
+									h1 {
+										position: absolute;
+										bottom: 0;
+										left: 0;
+										margin: 0 0 10px 10px;
+
+										font-size: 1.5em;
+										color: #e9e9e9;
+										text-shadow: 1px 1px 1px #666;
+									}
 								}
 
 								> section {
-									@extend .col-md-7, .col-sm-12;
-									padding: 0 10px;
+									display: block;
+									padding: 10px 10px 0;
 									font-size: 1.2em;
 								}
 							}
