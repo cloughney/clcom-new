@@ -1,5 +1,9 @@
-$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/'; //css-loader cwd is the project root dir, so we need to correct bootstrap's font path
-@import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+//css-loader cwd is the project root dir, so we need to correct external font paths
+$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
+$fa-font-path: '~font-awesome/fonts';
+
+@import 'bootstrap-sass/assets/stylesheets/bootstrap';
+@import 'font-awesome/scss/font-awesome';
 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
@@ -15,32 +19,45 @@ $color-background: hsl(190deg, 62%, 96%);
 $title-size: 2em;
 $menu-size: 1.3em;
 
-@import 'material/card.scss';
+@import 'material/card';
 
-@import 'console.scss';
-@import 'header/header.scss';
-@import 'feed.scss';
-@import 'resume.scss';
+@import 'content';
+@import 'sidebar';
+@import 'console';
+@import 'feed';
+@import 'resume';
+
 
 body {
-	background: #eee;
-	padding: 0;
-	margin: 0;
-	height: 100%;
-
 	font-family: 'Source Sans Pro';
+	background: #f9f9f9;
+	color: #666;
 
-	div.content {
-		@extend .container;
-
-		margin-bottom: 50px;
-		padding-bottom: 15px;
-		height: 100%;
-
-		p {
-			font-size: 1.3em;
+	a {
+		&:link {
 			line-height: 1.5em;
-			word-spacing: 0.1em;
+			padding: 0px 3px;
+			//background: lightblue;
+			color: lightblue;
+			text-decoration: none;
+
+			&.big {
+				font-size: 1.3em;
+			}
 		}
+
+		&:visited, &:active {
+			color: lightblue;
+		}
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	p {
+		font-size: 1.3em;
+		line-height: 1.5em;
+		word-spacing: 0.1em;
 	}
 }

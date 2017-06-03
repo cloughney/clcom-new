@@ -1,8 +1,6 @@
-body > .content {
+body .content {
 	div.resume {
-		@extend .card;
-
-		padding: 25px;
+		padding: 50px;
 
 		div.download {
 			text-align: center;

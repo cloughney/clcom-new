@@ -129,9 +129,10 @@ module.exports = {
 			exclude: [path.resolve('node_modules')],
 			use: 'handlebars-loader'
 		}, {
-			test: /\.(png|jpe?g|gif|svg|eot|woff|woff2|ttf)(\?\S*)?$/,
+			test: /\.(png|jpe?g|gif|svg|eot|woff|woff2|ttf)(\?.*)?$/,
 			include: [
 				path.resolve('node_modules/bootstrap'),
+				path.resolve('node_modules/font-awesome'),
 				path.resolve('images')
 			],
 			use: {

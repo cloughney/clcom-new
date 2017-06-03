@@ -3,11 +3,13 @@ body {
 		.feed {
 			@extend .container-fluid;
 
+			padding: 10px 15px;
+
 			> ul {
 				@extend .list-inline, .list-unstyled;
 
 				li {
-					@extend .col-md-6, .col-xs-12;
+					@extend .col-md-4, .col-xs-12;
 					padding: 5px 2px;
 
 					> .card {
