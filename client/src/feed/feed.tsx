@@ -11,7 +11,7 @@ export default function Feed(props: undefined): JSX.Element {
 								<h1>Showcase: Bash Shell in React</h1>
 							</div>
 							<section>
-								Play with a bash shell in the console!
+								Play with a bash shell!
 							</section>
 						</article>
 					</div>
@@ -20,10 +20,10 @@ export default function Feed(props: undefined): JSX.Element {
 					<div className="card layer-2 news">
 						<article>
 							<div className="heading green">
-								<h1>Showcase: Bash Shell in React</h1>
+								<h1>Showcase: Base Shell in React</h1>
 							</div>
 							<section>
-								Play with a bash shell in the console!
+								Play with a bash shell!
 							</section>
 						</article>
 					</div>
@@ -35,7 +35,7 @@ export default function Feed(props: undefined): JSX.Element {
 								<h1>Showcase: Bash Shell in React</h1>
 							</div>
 							<section>
-								Play with a bash shell in the console!
+								Play with a bash shell!
 							</section>
 						</article>
 					</div>
@@ -47,7 +47,7 @@ export default function Feed(props: undefined): JSX.Element {
 								<h1>Showcase: Bash Shell in React</h1>
 							</div>
 							<section>
-								Play with a bash shell in the console!
+								Play with a bash shell!
 							</section>
 						</article>
 					</div>
