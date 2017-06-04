@@ -33,6 +33,7 @@ div.console {
 			.input-line {
 				display: table;
 				width: 100%;
+				color: $console-stdin-color;
 
 				> label {
 					display: table-cell;
@@ -50,7 +51,6 @@ div.console {
 					margin-left: -1px;
 					width: 100%;
 					background: #222;
-					color: $console-stdin-color;
 					border: none;
 					outline: none;
 				}
