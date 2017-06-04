@@ -5,6 +5,10 @@ body .sidebar {
 	left: 0px;
 	right: 80%;
 
+	a:link {
+		text-decoration: none;
+	}
+
 	.bio {
 		a {
 			line-height: normal;
@@ -26,7 +30,7 @@ body .sidebar {
 		cursor: default;
 
 		> a {
-			color: #666;
+			color: $color-text;
 		}
 	}
 
@@ -41,22 +45,21 @@ body .sidebar {
 			cursor: pointer;
 			text-align: right;
 			font-size: 1.5em;
-			color: #666;
+			color: $color-text;
 			transition: 250ms;
 
 			&.highlight {
-				color: #458cbf;
+				color: $color-secondary;
 			}
 
 			&.active, &:hover {
-				color: lightblue;
-				border-bottom: 1px solid lightblue;
+				color: $color-primary;
+				border-bottom: 1px solid $color-primary;
 				padding-right: 30px;
 			}
 
 			&:hover {
 				background: #eee;
-				text-decoration: none;
 			}
 		}
 	}
@@ -70,15 +73,11 @@ body .sidebar {
 		padding: 15px;
 		font-size: 18px;
 
-		color: lightblue;
+		color: $color-primary;
 
 		a {
 			&:link, &:visited, &:active {
-				color: #555;
-			}
-
-			&:hover {
-				text-decoration: underline;
+				color: $color-primary;
 			}
 		}
 	}

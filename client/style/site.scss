@@ -1,6 +1,4 @@
-//css-loader cwd is the project root dir, so we need to correct external font paths
-$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/';
-$fa-font-path: '~font-awesome/fonts';
+@import 'variables';
 
 @import 'bootstrap-sass/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
@@ -8,30 +6,20 @@ $fa-font-path: '~font-awesome/fonts';
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 @import url('https://fonts.googleapis.com/css?family=Inconsolata');
 
-$color-primary: hsl(190deg, 100%, 30%);
-$color-primary-alt: desaturate($color-primary, 30%);
-
-$color-secondary: hsl(23deg, 100%, 78%);
-$color-secondary-alt: desaturate($color-secondary, 30%);
-
-$color-background: hsl(190deg, 62%, 96%);
-
-$title-size: 2em;
-$menu-size: 1.3em;
-
 @import 'material/card';
 
+@import 'components/console';
+@import 'components/feed';
 @import 'content';
 @import 'sidebar';
-@import 'console';
-@import 'feed';
-@import 'resume';
 
+@import 'pages/resume';
+@import 'pages/playground';
 
 body {
 	font-family: 'Source Sans Pro';
-	background: #f9f9f9;
-	color: #666;
+	background: $color-background-body;
+	color: $color-text;
 
 	a {
 		&:link {
