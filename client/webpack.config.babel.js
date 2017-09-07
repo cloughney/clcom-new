@@ -23,8 +23,8 @@ const entries = env.isTesting ? undefined : {
 	'index': [
 		'./src/pages/index'
 	],
-	'playground': [
-		'./src/pages/playground'
+	'showcase': [
+		'./src/pages/showcase'
 	],
 	'libs': [
 		'react',

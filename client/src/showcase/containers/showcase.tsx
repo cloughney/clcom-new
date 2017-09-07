@@ -2,16 +2,16 @@ import * as React from 'react';
 import { Action, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-interface PlaygroundContainerProps { }
-interface PlaygroundContainerState { }
+interface ShowcaseContainerProps { }
+interface ShowcaseContainerState { }
 
-function mapStateToProps(state: {}): PlaygroundContainerProps {
+function mapStateToProps(state: {}): ShowcaseContainerProps {
 	return {
 		//cart: state.cart
 	};
 }
 
-function mapDispatchToProps(dispatch: (action: Action) => Dispatch<Action>): PlaygroundContainerProps {
+function mapDispatchToProps(dispatch: Dispatch<Action>): ShowcaseContainerProps {
 	return {
 		// onProductSelectionChange: (product: Product, isSelected: boolean) => {
 		// 	const action = isSelected
@@ -23,8 +23,8 @@ function mapDispatchToProps(dispatch: (action: Action) => Dispatch<Action>): Pla
 	};
 }
 
-class PlaygroundContainer extends React.Component<PlaygroundContainerProps, PlaygroundContainerState> {
-	public constructor(props: PlaygroundContainerState) {
+class ShowcaseContainer extends React.Component<ShowcaseContainerProps, ShowcaseContainerState> {
+	public constructor(props: ShowcaseContainerState) {
 		super(props);
 		// this.state = {
 		// 	isLoading: true,
@@ -44,4 +44,4 @@ class PlaygroundContainer extends React.Component<PlaygroundContainerProps, Play
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(PlaygroundContainer);
+)(ShowcaseContainer);

@@ -3,7 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 export function getPlugins(env) {
 	return [
 		createPagePlugin('html/index.hbs', ['libs', 'index'], env),
-		createPagePlugin('html/playground.hbs', ['libs', 'playground'], env, { options: { compressBanner: true } }),
+		createPagePlugin('html/showcase.hbs', ['libs', 'showcase'], env, { options: { compressBanner: true } }),
 		createPagePlugin('html/resume.hbs', [], env, { options: { compressBanner: true } })
 	];
 }
@@ -27,7 +27,7 @@ function getPageConfig(env, {
 		links: {
 			'home': '/',
 			'blog': '//blog.chrisloughney.com',
-			'playground': createEnvironmentLink('/playground.html', env),
+			'showcase': createEnvironmentLink('/showcase.html', env),
 			'resume': createEnvironmentLink('/resume.html', env)
 		}
 	};
