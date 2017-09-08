@@ -1,9 +1,38 @@
+@mixin fancy-links {
+	a {
+		cursor: pointer;
+		border-bottom: 2px solid #fff;
+		color: #555;
+		text-shadow: #ddd 1px 1px 1px;
+		transition: 200ms;
+
+		i {
+			margin-right: 7px;
+			color: #aaa;
+			text-shadow: none;
+		}
+
+		&.highlight {
+			color: $color-secondary;
+		}
+
+		&.active, &:hover {
+			border-bottom: 2px solid $color-primary;
+			color: #222;
+
+			i { color: $color-primary; }
+		}
+	}
+}
+
 body .sidebar {
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	left: 0px;
 	right: 80%;
+
+	padding: 15px 50px;
 
 	a:link {
 		text-decoration: none;
@@ -17,68 +46,33 @@ body .sidebar {
 			img {
 				@extend .img-responsive, .img-circle, .center-block;
 
-				width: 60%;
-				height: 60%;
+				width: 100%;
+				height: 100%;
 				margin-top: 15px;
 			}
 		}
 	}
 
 	.title {
-		margin: -80px 0 45px;
 		text-align: center;
-		font-size: 2em;
+		font-size: 2.2em;
 		cursor: default;
 
 		> a {
-			color: #fff;
-			text-shadow: #666 1px 1px 1px;
+			color: #666;
+			text-shadow: #ddd 1px 1px 1px;
 		}
 	}
 
 	.menu {
-		margin-right: 0px;
-
 		ul {
 			@extend .list-unstyled;
+			margin-top: 25px;
 
 			.menu-item {
-				margin: 0 0 0 15px;
+				@include fancy-links;
 				padding: 5px 0;
-
-				a {
-					margin: 0 15px;
-					border-bottom: 2px solid #fff;
-
-					cursor: pointer;
-					font-size: 1.5em;
-					color: #555;
-					text-shadow: #ddd 1px 1px 1px;
-					transition: 200ms;
-
-					i {
-						margin-right: 7px;
-						color: #888;
-						text-shadow: none;
-					}
-
-					&.highlight {
-						color: $color-secondary;
-
-						i {
-							color: #888;
-						}
-					}
-
-					&.active, &:hover {
-						border-bottom: 2px solid $color-primary;
-						color: #333;
-
-						i {
-							color: $color-primary;
-						}
-					}
-				}
+				font-size: 1.5em;
 			}
 		}
 	}
@@ -89,22 +83,23 @@ body .sidebar {
 		left: 0px;
 		right: 0px;
 
-		margin: 0 15px;
+		margin: 0 50px;
 		padding: 5px 0;
 		font-size: 18px;
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #ddd;
 
-		a {
-			&:link, &:visited, &:active {
-				color: #555;
-				text-shadow: #ddd 1px 1px 1px;
-			}
-
-			i {
-				color: #628fb7;
-				margin-right: 7px;
-			}
-		}
+		@include fancy-links;
+		// a {
+		// 	&:link, &:visited, &:active {
+		// 		color: #555;
+		// 		text-shadow: #ddd 1px 1px 1px;
+		// 	}
+		//
+		// 	i {
+		// 		color: #628fb7;
+		// 		margin-right: 7px;
+		// 	}
+		// }
 	}
 }
