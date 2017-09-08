@@ -10,18 +10,30 @@
 	</div>
 
 	<div class="menu">
-		<a class="menu-item" href="{{ links.showcase }}">Showcase</a>
-		<a class="menu-item" href="{{ links.resume }}">Resume</a>
+		<ul>
+			<li class="menu-item">
+				<a href="{{ links.showcase }}">
+					<i class="fa fa-magic"></i>Showcase
+				</a>
+			</li>
+			<li class="menu-item">
+				<a href="{{ links.resume }}">
+					<i class="fa fa-list"></i>Resume
+				</a>
+			</li>
+		</ul>
 	</div>
 
 	<div class="social">
 		<div>
-			<i class="fa fa-github"></i>
-			<a href="https://github.com/cloughney">GitHub</a>
+			<a href="{{ links.github }}">
+				<i class="fa fa-github"></i>GitHub
+			</a>
 		</div>
 		<div>
-			<i class="fa fa-linkedin-square"></i>
-			<a href="http://www.linkedin.com/pub/christopher-loughney/5a/363/6b/">LinkedIn</a>
+			<a href="{{ links.linkedin }}">
+				<i class="fa fa-linkedin-square"></i>LinkedIn
+			</a>
 		</div>
 	</div>
 </div>

@@ -28,7 +28,9 @@ function getPageConfig(env, {
 			'home': '/',
 			'blog': '//blog.chrisloughney.com',
 			'showcase': createEnvironmentLink('/showcase.html', env),
-			'resume': createEnvironmentLink('/resume.html', env)
+			'resume': createEnvironmentLink('/resume.html', env),
+			'github': '//github.com/cloughney',
+			'linkedin': '/www.linkedin.com/pub/christopher-loughney/5a/363/6b/'
 		}
 	};
 }
