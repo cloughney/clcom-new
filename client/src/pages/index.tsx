@@ -4,20 +4,46 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import Showcase, { AppState as ShowcaseAppState } from '../showcase/containers/showcase';
-
-import Console from '../console/components/console';
-import onCommandReceived, { welcomeMessage } from '../console/handlers/default';
+import ConsoleActivity from '../showcase/components/console';
+import ExplorerActivity from '../showcase/components/explorer';
 
 const initialState: ShowcaseAppState = {
-	showcaseComponents: [
-		<div className="console">
-			<Console outputLines={welcomeMessage} onCommandReceived={onCommandReceived} />
-		</div>
-	]
+	availableActivities: {
+		'console': ConsoleActivity,
+		'explorer': ExplorerActivity
+	},
+	openActivities: [{
+		activity: ConsoleActivity,
+		position: {
+			x: 0,
+			y: 0,
+			width: 300,
+			height: 300
+		}
+	}]
 };
 
 const store = createStore((state: ShowcaseAppState, action) => {
-	return initialState;
+	if (!state) {
+		state = initialState;
+	}
+
+	switch (action.type) {
+		case 'OPEN_ACTIVITY':
+
+			break;
+		case 'CLOSE_ACTIVITY':
+
+			break;
+		case 'CHANGE_ACTIVITY':
+			const newActivity = state.availableActivities[action.id];
+			if (newActivity) {
+				return { ...state, currentActivity: newActivity };
+			}
+			break;
+	}
+
+	return state;
 });
 
 render(

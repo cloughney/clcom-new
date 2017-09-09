@@ -1,4 +1,4 @@
-import { ConsoleTextLineType } from '../components/console';
+import { ConsoleTextLineType, ConsoleCommand } from '../../../console';
 
 interface ConsoleCommandExecutable {
 	name: string;
@@ -33,11 +33,6 @@ const exeNotFound = async (cmd: any): Promise<number> => {
 	await cmd.stderr.writeLine(`'${cmd.name}' is not a valid command.`);
 	return Promise.resolve(1);
 };
-
-export const welcomeMessage = [
-	{ text: 'Welcome!', type: ConsoleTextLineType.Standard, hasEol: true },
-	{ text: 'Type \'help\' to see available commands.', type: ConsoleTextLineType.Standard, hasEol: true }
-];
 
 export default function onCommandReceived(command: ConsoleCommand): Promise<number> {
 	const matchedCommand = commands.get(command.name);

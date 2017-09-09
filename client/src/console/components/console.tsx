@@ -19,6 +19,21 @@ interface ConsoleTextLine {
 	hasEol: boolean;
 }
 
+export interface ConsoleStream {
+	write: (data: string) => Promise<void>;
+	writeLine: (data: string) => Promise<void>;
+	clear: () => Promise<void>;
+}
+
+export interface ConsoleCommand {
+	input: string;
+	name: string;
+	args: string[];
+
+	stdout: ConsoleStream;
+	stderr: ConsoleStream;
+}
+
 export enum ConsoleTextLineType {
 	Standard,
 	Error

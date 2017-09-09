@@ -6,4 +6,28 @@
 
 		font-size: 1.1em;
 	}
+
+	.activity {
+		.titlebar {
+			padding: 5px;
+			background: #ddd;
+
+			.title {
+				display: inline;
+				font-size: 1em;
+				line-height: 1.8em;
+			}
+
+			button {
+				@extend .pull-right;
+				margin-left: 5px;
+				font-size: 1em;
+				line-height: 1.8em;
+
+				&.close {
+
+				}
+			}
+		}
+	}
 }
