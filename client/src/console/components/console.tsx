@@ -163,4 +163,4 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 			resolve(exitCode);
 		});
 	};
-};
+}

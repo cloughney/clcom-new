@@ -2,46 +2,46 @@ import * as React from 'react';
 import { Action, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-interface ShowcaseContainerProps { }
-interface ShowcaseContainerState { }
+interface ShowcaseProps {
+	components: JSX.Element[];
+}
+interface ShowcaseState {
+	activeComponent: JSX.Element;
+}
 
-function mapStateToProps(state: {}): ShowcaseContainerProps {
+function mapStateToProps(state: AppState): Partial<ShowcaseProps> {
 	return {
-		//cart: state.cart
+		components: state.showcaseComponents
 	};
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Action>): ShowcaseContainerProps {
-	return {
-		// onProductSelectionChange: (product: Product, isSelected: boolean) => {
-		// 	const action = isSelected
-		// 		? AddCartItemAction.create(product, 1)
-		// 		: RemoveCartItemAction.create(product.itemId);
-		//
-		// 	dispatch(action);
-		// }
-	};
+function mapDispatchToProps(dispatch: Dispatch<Action>): Partial<ShowcaseProps> {
+	return {};
 }
 
-class ShowcaseContainer extends React.Component<ShowcaseContainerProps, ShowcaseContainerState> {
-	public constructor(props: ShowcaseContainerState) {
+class Showcase extends React.Component<ShowcaseProps, ShowcaseState> {
+	public constructor(props: ShowcaseProps) {
 		super(props);
-		// this.state = {
-		// 	isLoading: true,
-		// 	productListings: [] //TODO cache previous?
-		// };
+		this.state = {
+			activeComponent: props.components[0]
+		};
 	}
 
 	public componentWillMount(): void {
 
 	}
 
-	public render(): any {
-
+	public render(): JSX.Element {
+		const ActiveComponent = this.state.activeComponent;
+		return ActiveComponent;
 	}
+}
+
+export interface AppState {
+	showcaseComponents: JSX.Element[];
 }
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(ShowcaseContainer);
+)(Showcase);
