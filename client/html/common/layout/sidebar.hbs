@@ -1,23 +1,22 @@
 <div class="sidebar">
 	<div class="bio">
-		<a href="{{ links.home }}">
+		<a href="{{ links.showcase.href }}">
 			<img src="images/me.png" />
 		</a>
 	</div>
-
 	<div class="title">
-		<a href="{{ links.home }}">Chris Loughney</a>
+		<a href="{{ links.showcase.href }}">Chris Loughney</a>
 	</div>
 
 	<div class="menu">
 		<ul>
-			<li class="menu-item">
-				<a href="{{ links.showcase }}">
+			<li class="menu-item {{# if links.showcase.isActive }}active{{/ if }}">
+				<a href="{{ links.showcase.href }}">
 					<i class="fa fa-magic"></i>Showcase
 				</a>
 			</li>
-			<li class="menu-item">
-				<a href="{{ links.resume }}">
+			<li class="menu-item {{# if links.resume.isActive }}active{{/ if }}">
+				<a href="{{ links.resume.href }}">
 					<i class="fa fa-list"></i>Resume
 				</a>
 			</li>
@@ -25,15 +24,17 @@
 	</div>
 
 	<div class="social">
-		<div>
-			<a href="{{ links.github }}">
-				<i class="fa fa-github"></i>GitHub
-			</a>
-		</div>
-		<div>
-			<a href="{{ links.linkedin }}">
-				<i class="fa fa-linkedin-square"></i>LinkedIn
-			</a>
-		</div>
+		<ul>
+			<li>
+				<a href="{{ links.github.href }}">
+					<i class="fa fa-github"></i>GitHub
+				</a>
+			</li>
+			<li>
+				<a href="{{ links.linkedin.href }}">
+					<i class="fa fa-linkedin-square"></i>LinkedIn
+				</a>
+			</li>
+		</ul>
 	</div>
 </div>

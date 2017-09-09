@@ -20,12 +20,7 @@ const paths = {
 
 const entries = env.isTesting ? undefined : {
 	'style': ['./style/site.scss'],
-	'index': [
-		'./src/pages/index'
-	],
-	'showcase': [
-		'./src/pages/showcase'
-	],
+	'index': ['./src/pages/index'],
 	'libs': [
 		'react',
 		'react-dom',

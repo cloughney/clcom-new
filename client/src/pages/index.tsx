@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
-import Feed from '../feed/feed';
+import Console from '../console/components/console';
+import onCommandReceived, { welcomeMessage } from '../console/handlers/default';
 
 render(
-	<Feed />,
-	document.querySelector('body .content')
-)
+	<Console
+		outputLines={welcomeMessage}
+		onCommandReceived={onCommandReceived} />,
+	document.querySelector('body .content .console'));

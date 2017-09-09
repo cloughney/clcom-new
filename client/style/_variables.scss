@@ -6,11 +6,11 @@ $fa-font-path: '~font-awesome/fonts';
 
 /* colors */
 
-$color-primary: hsl(189deg, 77%, 58%);
-$color-primary-alt: desaturate($color-primary, 30%);
+$primary-color: hsl(189deg, 77%, 58%);
+$primary-color-alt: desaturate($primary-color, 30%);
 
-$color-secondary: hsl(23deg, 100%, 78%);
-$color-secondary-alt: desaturate($color-secondary, 30%);
+$secondary-color: #93ecd7;
+$secondary-color-alt: desaturate($secondary-color, 30%);
 
 $color-background-body: #f9f9f9;
 $color-background-content: #fff;

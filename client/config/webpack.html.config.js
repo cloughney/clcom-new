@@ -2,9 +2,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export function getPlugins(env) {
 	return [
-		createPagePlugin('html/index.hbs', ['libs', 'index'], env),
-		createPagePlugin('html/showcase.hbs', ['libs', 'showcase'], env, { options: { compressBanner: true } }),
-		createPagePlugin('html/resume.hbs', [], env, { options: { compressBanner: true } })
+		createPagePlugin('html/index.hbs', ['libs', 'index'], env, { options: { pageName: 'showcase' } }),
+		createPagePlugin('html/resume.hbs', [], env, { options: { pageName: 'resume' } })
 	];
 }
 
@@ -19,18 +18,16 @@ function createEnvironmentLink(link, env) {
 }
 
 function getPageConfig(env, {
-	compressBanner = false
+	pageName = undefined
 } = {}) {
 	return {
-		compressBanner,
 		includeDevServer: env.isDevelopment,
 		links: {
-			'home': '/',
-			'blog': '//blog.chrisloughney.com',
-			'showcase': createEnvironmentLink('/showcase.html', env),
-			'resume': createEnvironmentLink('/resume.html', env),
-			'github': '//github.com/cloughney',
-			'linkedin': '/www.linkedin.com/pub/christopher-loughney/5a/363/6b/'
+			'showcase': { href: '/', isActive: pageName === 'showcase' },
+			'resume': { href: createEnvironmentLink('/resume.html', env), isActive: pageName === 'resume' },
+			'blog': { href: '//blog.chrisloughney.com' },
+			'github': { href: '//github.com/cloughney' },
+			'linkedin': { href: '//www.linkedin.com/pub/christopher-loughney/5a/363/6b/' }
 		}
 	};
 }

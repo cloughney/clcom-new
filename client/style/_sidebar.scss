@@ -1,56 +1,55 @@
 @mixin fancy-links {
+	$text-color: #555;
+	$text-hover-color: #222;
+	$icon-color: #aaa;
+
+	@mixin hover-state {
+		border-bottom: 2px solid $primary-color;
+		color: $text-hover-color;
+
+		i { color: $primary-color; }
+	}
+
 	a {
+		text-decoration: none;
 		cursor: pointer;
-		border-bottom: 2px solid #fff;
-		color: #555;
+		border-bottom: 2px solid none;
+		color: $text-color;
 		text-shadow: #ddd 1px 1px 1px;
 		transition: 200ms;
 
 		i {
 			margin-right: 7px;
-			color: #aaa;
+			color: $icon-color;
 			text-shadow: none;
 		}
 
 		&.highlight {
-			color: $color-secondary;
+			color: $secondary-color;
 		}
 
-		&.active, &:hover {
-			border-bottom: 2px solid $color-primary;
-			color: #222;
+		&.active, &:hover, &:active  { @include hover-state; }
+	}
 
-			i { color: $color-primary; }
-		}
+	&.active a {
+		@include hover-state;
 	}
 }
 
 body .sidebar {
+	$gutter-width: 50px;
+	$divider-color: #eee;
+
 	position: absolute;
 	top: 0;
 	bottom: 0;
 	left: 0px;
 	right: 80%;
 
-	padding: 15px 50px;
+	padding: 15px $gutter-width;
 
 	a:link {
 		text-decoration: none;
-	}
-
-	.bio {
-		a {
-			line-height: normal;
-			padding: 0;
-
-			img {
-				@extend .img-responsive, .img-circle, .center-block;
-
-				width: 100%;
-				height: 100%;
-				margin-top: 15px;
-			}
-		}
 	}
 
 	.title {
@@ -64,15 +63,37 @@ body .sidebar {
 		}
 	}
 
+	.bio {
+		margin: 0 0 10px 0;
+
+		a {
+			line-height: normal;
+			padding: 0;
+
+			img {
+				@extend .img-responsive, .img-circle, .center-block;
+
+				width: 75%;
+			}
+		}
+	}
+
 	.menu {
+		@extend .clearfix;
+		padding: 5px 0;
+		border-top: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+
 		ul {
-			@extend .list-unstyled;
-			margin-top: 25px;
+			@extend .list-unstyled, .list-inline;
+			margin: 0;
 
 			.menu-item {
+				@extend .col-md-6;
 				@include fancy-links;
 				padding: 5px 0;
 				font-size: 1.5em;
+				text-align: center;
 			}
 		}
 	}
@@ -80,26 +101,20 @@ body .sidebar {
 	.social {
 		position: absolute;
 		bottom: 15px;
-		left: 0px;
-		right: 0px;
+		left: $gutter-width;
+		right: $gutter-width;
 
-		margin: 0 50px;
+		margin: 0;
 		padding: 5px 0;
 		font-size: 18px;
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #ddd;
 
+		ul {
+			@extend .list-unstyled;
+			margin: 0;
+		}
+
 		@include fancy-links;
-		// a {
-		// 	&:link, &:visited, &:active {
-		// 		color: #555;
-		// 		text-shadow: #ddd 1px 1px 1px;
-		// 	}
-		//
-		// 	i {
-		// 		color: #628fb7;
-		// 		margin-right: 7px;
-		// 	}
-		// }
 	}
 }
