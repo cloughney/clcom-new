@@ -15,10 +15,11 @@ const initialState: ShowcaseAppState = {
 	openActivities: [{
 		activity: ConsoleActivity,
 		position: {
-			x: 0,
-			y: 0,
+			x: 250,
+			y: 168,
 			width: 300,
-			height: 300
+			height: 300,
+			isMaximized: true
 		}
 	}]
 };

@@ -17,6 +17,7 @@ export interface OpenActivityPosition {
 	y: number;
 	width: number;
 	height: number;
+	isMaximized: boolean;
 }
 
 export interface OpenActivity {
@@ -26,7 +27,6 @@ export interface OpenActivity {
 
 export interface ShowcaseActivityProps {
 	onActivityAction: (action: ShowcaseActivityAction, activityId: string, options?: object) => void;
-	position: OpenActivityPosition
 }
 
 export interface ShowcaseActivityClass<T extends ShowcaseActivityProps> {

@@ -34,23 +34,26 @@ function mapDispatchToProps(dispatch: Dispatch<Action>): Partial<ShowcaseProps> 
 }
 
 class Showcase extends React.Component<ShowcaseProps, ShowcaseState> {
+	private activityMap: Map<OpenActivity, HTMLDivElement>;
+
 	public constructor(props: ShowcaseProps) {
 		super(props);
 		this.state = {};
+		this.activityMap = new Map<OpenActivity, HTMLDivElement>();
 	}
 
 	public render(): JSX.Element {
 		const activities = this.props.openActivities
 			.map((x, i) => {
 				return (
-					<div className="activity" key={ i } style={ this.getActivityWindowStyle(x.position, i) }>
+					<div ref={ ref => this.activityMap.set(x, ref) } className="activity" key={ i } style={ this.getActivityWindowStyle(x.position, i) }>
 						<div className="titlebar">
 							<div className="title">Console</div>
-							<button onClick={ this.onWindowAction.bind(this, 'close', x.position) }><i className="fa fa-window-close" /></button>
-							<button onClick={ this.onWindowAction.bind(this, 'maximize', x.position) }><i className="fa fa-window-maximize" /></button>
-							<button onClick={ this.onWindowAction.bind(this, 'minimize', x.position) }><i className="fa fa-window-minimize" /></button>
+							<button onClick={ this.onWindowAction.bind(this, 'close', x) }><i className="fa fa-window-close" /></button>
+							<button onClick={ () => { this.onWindowAction(x.position.isMaximized ? 'restore' : 'maximize', x); } }><i className={ x.position.isMaximized ? 'fa fa-window-restore' : 'fa fa-window-maximize' } /></button>
+							<button onClick={ this.onWindowAction.bind(this, 'minimize', x) }><i className="fa fa-window-minimize" /></button>
 						</div>
-						<x.activity onActivityAction={ this.props.onActivityAction } position={ x.position } />
+						<x.activity onActivityAction={ this.props.onActivityAction } />
 					</div>
 				);
 			});
@@ -58,27 +61,63 @@ class Showcase extends React.Component<ShowcaseProps, ShowcaseState> {
 		return (<div>{ activities }</div>);
 	}
 
-	private onWindowAction = (action: string, position: OpenActivityPosition): void => {
+	private onWindowAction = (action: string, activity: Readonly<OpenActivity>): void => {
+		const activityDiv = this.activityMap.get(activity);
+
 		switch (action) {
 			case 'maximize':
-			
+				activity.position.isMaximized = true;
+				this.applyActivityWindowStyle(activity.position, 0, activityDiv);
+				break;
+			case 'restore':
+				activity.position.isMaximized = false;
+				this.applyActivityWindowStyle(activity.position, 0, activityDiv);
 				break;
 		}
 	}
 
 	private getActivityWindowStyle(position: OpenActivityPosition, index: number): React.CSSProperties {
-		return {
+		const styles: React.CSSProperties = {
 			position: 'absolute',
-			top: `${position.y}px`,
-			left: `${position.x}px`,
-			width: `${position.width}px`,
-			height: `${position.height}px`,
 			zIndex: (index + 1) * 100,
 			overflow: 'hidden'
 		};
+
+		if (position.isMaximized) {
+			styles.top = 0,
+			styles.left =  0,
+			styles.right = 0,
+			styles.bottom =  0
+		} else {
+			styles.top = `${position.y}px`,
+			styles.left =  `${position.x}px`,
+			styles.width =  `${position.width}px`,
+			styles.height =  `${position.height}px`
+		}
+
+		return styles;
 	}
 
+	private applyActivityWindowStyle(position: OpenActivityPosition, index: number, element: HTMLElement): void {
+		const style = this.getActivityWindowStyle(position, index);
+		let styleString = '';
+		Object.getOwnPropertyNames(style).forEach(x => {
+			let styleName = x;
+			switch (x) {
+				case 'zIndex':
+					styleName = 'z-index';
+					break;
+			}
 
+			if (styleString.length > 0) {
+				styleString += ';';
+			}
+
+			styleString += `${styleName}: ${style[x]}`;
+		});
+
+		element.setAttribute('style', styleString);
+	}
 }
 
 export interface AppState {
