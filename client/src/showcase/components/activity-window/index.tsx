@@ -8,6 +8,12 @@ interface Props extends ActivityProps {
 	onWindowAction: (action: WindowAction, activity: OpenWindow, options?: object) => void;
 }
 
+interface State {
+	isMoving: boolean;
+	offset: { top: number, left: number };
+	windowStyle: React.CSSProperties;
+}
+
 const getActivityWindowStyle = (depth: number, position: OpenWindowPosition): React.CSSProperties => {
 	const styles: React.CSSProperties = {
 		position: 'absolute',
@@ -30,31 +36,16 @@ const getActivityWindowStyle = (depth: number, position: OpenWindowPosition): Re
 	return styles;
 }
 
-const applyActivityWindowStyle = (depth: number, position: OpenWindowPosition, index: number, element: HTMLElement): void => {
-	const style = getActivityWindowStyle(depth, position);
-	let styleString = '';
-	Object.getOwnPropertyNames(style).forEach(x => {
-		let styleName = x;
-		switch (x) {
-			case 'zIndex':
-				styleName = 'z-index';
-				break;
-		}
+export default class ActivityWindow extends ShowcaseActivity<Props, State> {
+	private element: HTMLDivElement;
 
-		if (styleString.length > 0) {
-			styleString += ';';
-		}
-
-		styleString += `${styleName}: ${style[x]}`;
-	});
-
-	element.setAttribute('style', styleString);
-}
-
-export default class ActivityWindow extends ShowcaseActivity<Props, {}> {
 	public constructor(props: Props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			isMoving: false,
+			offset: { top: 0, left: 0 },
+			windowStyle: getActivityWindowStyle(props.depth, props.window.position)
+		};
 	}
 
 	private get isWindowMaximized(): boolean {
@@ -63,8 +54,11 @@ export default class ActivityWindow extends ShowcaseActivity<Props, {}> {
 
 	public render(): JSX.Element {
 		return (
-			<div ref={ ref => void 0 } className="activity" style={ getActivityWindowStyle(this.props.depth, this.props.window.position) }>
-				<div className="titlebar">
+			<div
+				ref={ ref => { this.element = ref; } }
+				className="activity"
+				style={ this.state.windowStyle }>
+				<div className="titlebar" onMouseDown={ this.onMouseDown }>
 					<div className="title">Console</div>
 					<button onClick={ () => { this.props.onWindowAction(WindowAction.Close, this.props.window); } }>
 						<i className="fa fa-window-close" />
@@ -84,5 +78,62 @@ export default class ActivityWindow extends ShowcaseActivity<Props, {}> {
 					onWindowAction={ (action, options) => { this.props.onWindowAction(action, this.props.window, options); } } />
 			</div>
 		);
+	}
+
+	public componentWillReceiveProps(props: Props): void {
+		this.setState(state => ({
+			...state,
+			windowStyle: getActivityWindowStyle(props.depth, props.window.position)
+		}));
+	}
+
+	public componentDidUpdate(props: Props, state: State): void {
+		if (!state.isMoving && this.state.isMoving) {
+			document.addEventListener('mousemove', this.onMouseMove);
+			document.addEventListener('mouseup', this.onMouseUp);
+		} else if (state.isMoving && !this.state.isMoving) {
+			document.removeEventListener('mousemove', this.onMouseMove);
+			document.removeEventListener('mouseup', this.onMouseUp);
+		}
+	}
+
+	private onMouseDown = (e: React.MouseEvent<any>): void => {
+		if (this.state.isMoving || this.props.window.position.isMaximized) { return; }
+		e.preventDefault();
+
+		const top = e.clientY - this.element.offsetTop;
+		const left = e.clientX - this.element.offsetLeft;
+		
+		this.setState({
+			isMoving: true,
+			offset: { top, left }
+		});
+	}
+
+	private onMouseUp = (e: MouseEvent): void => {
+		if (!this.state.isMoving || this.props.window.position.isMaximized) { return; }
+		e.preventDefault();
+
+		console.log('end');
+		this.setState({ isMoving: false });
+	}
+
+	private onMouseMove = (e: MouseEvent): void => {
+		if (!this.state.isMoving) { return; }
+		e.preventDefault();
+
+		const x = this.element.clientLeft + (e.clientX - this.state.offset.left);
+		const y = this.element.clientTop + (e.clientY - this.state.offset.top);
+
+		console.log(`e: ${this.element.offsetLeft}, ${this.element.offsetTop}`)
+		console.log(`f: ${x}, ${y}`);
+
+		this.setState((state, props) => ({
+			...state,
+			windowStyle: getActivityWindowStyle(props.depth, {
+				...props.window.position,
+				x, y
+			})
+		}));
 	}
 }

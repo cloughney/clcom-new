@@ -59,6 +59,8 @@ const store = createStore((state: AppState, action) => {
 	state = state || initialState;
 	action.options = action.options || {};
 
+	console.dir(action);
+
 	let windowIndex: number;
 	switch (action.type) {
 		case 'OPEN_WINDOW':
@@ -68,9 +70,13 @@ const store = createStore((state: AppState, action) => {
 		case 'FOCUS_WINDOW':
 			break;
 		case 'MAXIMIZE_WINDOW':
-			return setWindowPosition(state, action.window, 'isMaximized', true);
+			let o = setWindowPosition(state, action.window, 'isMaximized', true);
+			console.dir(o);
+			return o;
 		case 'RESTORE_WINDOW':
-			return setWindowPosition(state, action.window, 'isMaximized', false);
+			let x = setWindowPosition(state, action.window, 'isMaximized', false);
+			console.dir(x);
+			return x;
 	}
 
 	return state;

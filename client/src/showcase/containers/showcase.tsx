@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Action, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import ActivityAdapter, { ActivityProps, ActivityClass, OpenWindow, OpenWindowPosition, WindowAction } from '../components/showcase-activity';
+import ActivityAdapter, { ActivityProps, ActivityClass, OpenWindow, WindowAction } from '../components/showcase-activity';
 import ActivityWindow from '../components/activity-window';
 
 interface ShowcaseProps {
@@ -39,12 +39,9 @@ function mapDispatchToProps(dispatch: Dispatch<Action>): Partial<ShowcaseProps> 
 }
 
 class Showcase extends React.Component<ShowcaseProps, ShowcaseState> {
-	private activityMap: Map<OpenWindow, HTMLDivElement>;
-
 	public constructor(props: ShowcaseProps) {
 		super(props);
 		this.state = {};
-		this.activityMap = new Map<OpenWindow, HTMLDivElement>();
 	}
 
 	public render(): JSX.Element {
