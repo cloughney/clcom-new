@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Action, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import ActivityWindow, { OpenWindow, WindowAction, ActivityClass } from '../components/activity-window';
+import { Activity, OpenWindow, WindowAction } from '../components/activity-window';
 
 type Props = {
-	availableActivities: ActivityClass<any>[];
+	availableActivities: Activity[];
 	openWindows: OpenWindow[];
 	onWindowAction: (action: WindowAction, window: OpenWindow, options?: object) => void;
 }
@@ -39,17 +39,17 @@ function mapDispatchToProps(dispatch: Dispatch<Action>): Partial<Props> {
 const Showcase: React.SFC<Props> = (props: Props): JSX.Element => {
 	const activities = props.openWindows
 		.map((openWindow, i) => (
-			<ActivityWindow
+			<openWindow.activity
 				key={ i } depth={ i } window={ openWindow }
-				availableActivities={ this.props.availableActivities }
-				onWindowAction={ (action, options) => { this.props.onWindowAction(action, openWindow, options) } } />
+				availableActivities={ props.availableActivities }
+				onWindowAction={ (action, options) => { props.onWindowAction(action, openWindow, options) } } />
 			));
 
 	return (<div>{ activities }</div>);
 }
 
 export type AppState = {
-	availableActivities: ActivityClass[];
+	availableActivities: Activity[];
 	openWindows: OpenWindow[];
 }
 
