@@ -1,12 +1,10 @@
 import * as React from 'react';
-import ActivityAdapter, { ActivityProps, WindowAction } from '../showcase-activity';
+import { ActivityAdapter, AdapterProps, WindowAction } from '../activity-window';
 import Console, { ConsoleCommand, ConsoleTextLineType } from '../../../console';
 import handleCommand from './commands';
 
-interface Props extends ActivityProps {}
-
-export default class ConsoleActivity extends ActivityAdapter<Props, {}> {
-	public constructor(props: Props) {
+export default class ConsoleActivity extends ActivityAdapter<AdapterProps, {}> {
+	public constructor(props: AdapterProps) {
 		super(props);
 		this.state = {};
 	}

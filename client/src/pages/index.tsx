@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import Showcase, { AppState } from '../showcase/containers/showcase';
-import { OpenWindow, OpenWindowPosition, ActivityClass, ActivityProps } from '../showcase/components/showcase-activity';
+import { ActivityClass, OpenWindow, WindowPosition } from '../showcase/components/activity-window';
 import ConsoleActivity from '../showcase/components/console';
 import ExplorerActivity from '../showcase/components/explorer';
 
-const openWindow = (state: AppState, activity: ActivityClass<ActivityProps>): AppState => {
+const openWindow = (state: AppState, activity: ActivityClass): AppState => {
 	return {
 		...state,
 		openWindows: [
@@ -44,16 +44,16 @@ const focusWindow = (state: AppState, windowHandle: OpenWindow): AppState => {
 	}
 }
 
-const setWindowPosition = (state: AppState, windowHandle: OpenWindow, updates: Partial<OpenWindowPosition>): AppState => {
+const setWindowPosition = (state: AppState, windowHandle: OpenWindow, updates: Partial<WindowPosition>): AppState => {
 	return {
 		...state,
-		openWindows: [
-			{
-				...windowHandle,
-				position: { ...windowHandle.position, ...updates }
-			},
-			...state.openWindows.filter(x => x !== windowHandle)
-		]
+		openWindows: state.openWindows.map(x => {
+			if (x !== windowHandle) {
+				return { ...x };
+			}
+
+			return { ...x, position: { ...x.position, ...updates } };
+		})
 	};
 }
 

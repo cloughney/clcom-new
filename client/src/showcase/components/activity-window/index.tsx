@@ -1,20 +1,22 @@
 import * as React from 'react';
-import ShowcaseActivity, { ActivityProps, ActivityClass, WindowAction, OpenWindow, OpenWindowPosition } from '../showcase-activity';
 
-interface Props extends ActivityProps {
-	availableActivities: ActivityClass<ActivityProps>[];
-	window: OpenWindow;
-	depth: number;
+type ActivityProps = {
+	availableActivities: ActivityClass<any>[];
 	onWindowAction: (action: WindowAction, options?: object) => void;
 }
 
-interface State {
-	isMoving: boolean;
-	offset: { top: number, left: number };
-	windowStyle: React.CSSProperties;
+type Props = ActivityProps & {
+	window: OpenWindow;
+	depth: number;
 }
 
-const getActivityWindowStyle = (depth: number, position: OpenWindowPosition): React.CSSProperties => {
+type State = {
+	readonly isMoving: boolean;
+	readonly offset: { top: number, left: number };
+	readonly windowStyle: React.CSSProperties;
+}
+
+const getActivityWindowStyle = (depth: number, position: WindowPosition): React.CSSProperties => {
 	const styles: React.CSSProperties = {
 		position: 'absolute',
 		zIndex: (100 - depth) * 100,
@@ -36,7 +38,43 @@ const getActivityWindowStyle = (depth: number, position: OpenWindowPosition): Re
 	return styles;
 }
 
-export default class ActivityWindow extends ShowcaseActivity<Props, State> {
+export type AdapterProps = ActivityProps;
+
+export abstract class ActivityAdapter<TProps extends AdapterProps, TState> extends React.Component<TProps, TState> {
+	protected constructor(props: TProps) {
+		super(props);
+	}
+}
+
+export enum WindowAction {
+	Open,
+	Close,
+	Focus,
+	Restore,
+	Minimize,
+	Maximize,
+	Resize,
+	Move
+}
+
+export interface WindowPosition {
+	x: number;
+	y: number;
+	width: number;
+	height: number;
+	isMaximized: boolean;
+}
+
+export interface OpenWindow {
+	activity: ActivityClass;
+	position: WindowPosition;
+}
+
+export interface ActivityClass<T extends AdapterProps = AdapterProps> {
+	new(props: any): ActivityAdapter<T, any>;
+}
+
+export default class ActivityWindow extends ActivityAdapter<Props, State> {
 	private element: HTMLDivElement;
 
 	public constructor(props: Props) {

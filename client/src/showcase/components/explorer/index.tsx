@@ -1,11 +1,9 @@
 import * as React from 'react';
-import ActivityAdapter, { ActivityProps } from '../showcase-activity';
+import { ActivityAdapter, AdapterProps } from '../activity-window';
 import Explorer from '../../../item-explorer';
 
-interface Props extends ActivityProps {}
-
-export default class ExplorerActivity extends ActivityAdapter<Props, {}> {
-	public constructor(props: Props) {
+export default class ExplorerActivity extends ActivityAdapter<AdapterProps, {}> {
+	public constructor(props: AdapterProps) {
 		super(props);
 		this.state = {};
 	}

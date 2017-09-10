@@ -1,16 +1,13 @@
 import * as React from 'react';
 import { Action, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import ActivityAdapter, { ActivityProps, ActivityClass, OpenWindow, WindowAction } from '../components/showcase-activity';
-import ActivityWindow from '../components/activity-window';
+import ActivityWindow, { OpenWindow, WindowAction, ActivityClass } from '../components/activity-window';
 
-interface ShowcaseProps {
-	availableActivities: ActivityClass<ActivityProps>[];
+type Props = {
+	availableActivities: ActivityClass<any>[];
 	openWindows: OpenWindow[];
 	onWindowAction: (action: WindowAction, window: OpenWindow, options?: object) => void;
 }
-
-interface ShowcaseState {}
 
 const actionToTypeMap = new Map<WindowAction, string>();
 actionToTypeMap.set(WindowAction.Open, 'OPEN_WINDOW');
@@ -22,14 +19,14 @@ actionToTypeMap.set(WindowAction.Restore, 'RESTORE_WINDOW');
 actionToTypeMap.set(WindowAction.Resize, 'RESIZE_WINDOW');
 actionToTypeMap.set(WindowAction.Move, 'MOVE_WINDOW');
 
-function mapStateToProps(state: AppState): Partial<ShowcaseProps> {
+function mapStateToProps(state: AppState): Partial<Props> {
 	return {
 		availableActivities: state.availableActivities,
 		openWindows: state.openWindows
 	};
 }
 
-function mapDispatchToProps(dispatch: Dispatch<Action>): Partial<ShowcaseProps> {
+function mapDispatchToProps(dispatch: Dispatch<Action>): Partial<Props> {
 	return {
 		onWindowAction: (action, window, options) => {
 			const type = actionToTypeMap.get(action);
@@ -39,26 +36,20 @@ function mapDispatchToProps(dispatch: Dispatch<Action>): Partial<ShowcaseProps> 
 	};
 }
 
-class Showcase extends React.Component<ShowcaseProps, ShowcaseState> {
-	public constructor(props: ShowcaseProps) {
-		super(props);
-		this.state = {};
-	}
+const Showcase: React.SFC<Props> = (props: Props): JSX.Element => {
+	const activities = props.openWindows
+		.map((openWindow, i) => (
+			<ActivityWindow
+				key={ i } depth={ i } window={ openWindow }
+				availableActivities={ this.props.availableActivities }
+				onWindowAction={ (action, options) => { this.props.onWindowAction(action, openWindow, options) } } />
+			));
 
-	public render(): JSX.Element {
-		const activities = this.props.openWindows
-			.map((x, i) => (
-				<ActivityWindow key={ i } window={ x } depth={ i }
-					availableActivities={ this.props.availableActivities }
-					onWindowAction={ (action, options) => { this.props.onWindowAction(action, x, options) } } />
-				));
-
-		return (<div>{ activities }</div>);
-	}
+	return (<div>{ activities }</div>);
 }
 
-export interface AppState {
-	availableActivities: ActivityClass<ActivityProps>[];
+export type AppState = {
+	availableActivities: ActivityClass[];
 	openWindows: OpenWindow[];
 }
 
