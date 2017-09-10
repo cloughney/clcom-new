@@ -28,6 +28,7 @@ export type ActivityComponent = React.ComponentType<ActivityProps>;
 export type Activity = {
 	locator: string;
 	title: string;
+	icon?: string;
 	component: ActivityComponent;
 }
 

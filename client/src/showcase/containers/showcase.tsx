@@ -49,8 +49,8 @@ const Showcase: React.SFC<Props> = (props: Props): JSX.Element => {
 }
 
 export type AppState = {
-	availableActivities: ActivityProps['availableActivities'];
-	openWindows: OpenWindow[];
+	readonly availableActivities: ActivityProps['availableActivities'];
+	readonly openWindows: OpenWindow[];
 }
 
 export default connect(

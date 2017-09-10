@@ -8,16 +8,22 @@
 	}
 
 	.activity {
-		border-radius: 10px;
+		border-radius: 5px;
 
 		.titlebar {
-			padding: 5px;
+			user-select: none;
+			padding: 5px 10px;
 			background: linear-gradient(90deg, #ddd, adjust-hue(#ddd, -5deg));
 
 			.title {
 				display: inline;
 				font-size: 1em;
 				line-height: 1.8em;
+				cursor: default;
+
+				i {
+					padding: 0 5px 0 0;
+				}
 			}
 
 			button {
@@ -27,6 +33,10 @@
 				line-height: 1.8em;
 				background: none;
 				border: none;
+
+				&:focus {
+					outline: none;
+				}
 			}
 		}
 
@@ -37,7 +47,7 @@
 		}
 
 		&:not(.maximized) {
-			box-shadow: #666 1px 1px 5px;
+  			box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 		}
 	}
 }
