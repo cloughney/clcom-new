@@ -18,15 +18,18 @@ export interface WindowPosition {
 }
 
 export type ActivityProps = {
-	availableActivities: Activity[];
+	availableActivities: ActivityComponent[];
 	window: OpenWindow;
 	depth: number;
 	onWindowAction: (action: WindowAction, options?: object) => void;
 }
 
-export type Activity = React.ComponentType<ActivityProps>;
+export type ActivityComponent = React.ComponentType<ActivityProps>;
+export type Activity = {
+	component: ActivityComponent;
+}
 
 export interface OpenWindow {
-	activity: Activity;
+	activity: ActivityComponent;
 	position: WindowPosition;
 }

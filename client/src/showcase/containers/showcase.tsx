@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Action, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { Activity, OpenWindow, WindowAction } from '../components/activity-window';
+import { ActivityComponent, OpenWindow, WindowAction } from '../components/activity-window';
 
 type Props = {
-	availableActivities: Activity[];
+	availableActivities: ActivityComponent[];
 	openWindows: OpenWindow[];
 	onWindowAction: (action: WindowAction, window: OpenWindow, options?: object) => void;
 }
@@ -49,7 +49,7 @@ const Showcase: React.SFC<Props> = (props: Props): JSX.Element => {
 }
 
 export type AppState = {
-	availableActivities: Activity[];
+	availableActivities: ActivityComponent[];
 	openWindows: OpenWindow[];
 }
 

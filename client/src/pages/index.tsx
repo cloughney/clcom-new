@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import Showcase, { AppState } from '../showcase/containers/showcase';
-import { Activity, OpenWindow, WindowPosition } from '../showcase/components/activity-window';
+import { ActivityComponent, OpenWindow, WindowPosition } from '../showcase/components/activity-window';
 import ConsoleActivity from '../showcase/components/console';
 import ExplorerActivity from '../showcase/components/explorer';
 
-const openWindow = (state: AppState, activity: Activity): AppState => {
+const openWindow = (state: AppState, activity: ActivityComponent): AppState => {
 	return {
 		...state,
 		openWindows: [

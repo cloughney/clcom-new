@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Activity, ActivityProps, WindowAction, WindowPosition } from './activity';
+import { ActivityComponent, ActivityProps, WindowAction, WindowPosition } from './activity';
+import TitleBar from './title-bar';
 
 const getActivityWindowStyle = (depth: number, position: WindowPosition): React.CSSProperties => {
 	const styles: React.CSSProperties = {
@@ -34,7 +35,7 @@ export type AdapterProps = {
 	onWindowAction: ActivityProps['onWindowAction'];
 }
 
-export function asAdapter<TProps extends AdapterProps>(Component: React.ComponentType<TProps>): Activity {
+export function asAdapter<TProps extends AdapterProps>(Component: React.ComponentType<TProps>): ActivityComponent {
 	const ActivityWindow = class extends React.Component<ActivityProps, State> {
 		private element: HTMLDivElement;
 
@@ -68,7 +69,7 @@ export function asAdapter<TProps extends AdapterProps>(Component: React.Componen
 					className={ this.windowClassName }
 					style={ this.state.windowStyle }
 					onMouseDown={ this.onFocus }>
-
+					<TitleBar window={ this.props.window } onWindowAction={ this.props.onWindowAction } onMouseDown={ this.onMouseDown } />
 					<Component
 						availableActivities={ this.props.availableActivities }
 						onWindowAction={ (action, options) => { this.props.onWindowAction(action, options); } } />
