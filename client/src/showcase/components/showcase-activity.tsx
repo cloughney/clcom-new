@@ -1,18 +1,22 @@
 import * as React from 'react';
 
-abstract class ShowcaseActivity<TProps extends ShowcaseActivityProps, TState> extends React.Component<TProps, TState> {
+abstract class ActivityAdapter<TProps extends ActivityProps, TState> extends React.Component<TProps, TState> {
 	protected constructor(props: TProps) {
 		super(props);
 	}
 }
 
-export enum ShowcaseActivityAction {
+export enum WindowAction {
 	Open,
 	Close,
-	Focus
+	Focus,
+	Restore,
+	Minimize,
+	Maximize,
+	Resize
 }
 
-export interface OpenActivityPosition {
+export interface OpenWindowPosition {
 	x: number;
 	y: number;
 	width: number;
@@ -20,17 +24,18 @@ export interface OpenActivityPosition {
 	isMaximized: boolean;
 }
 
-export interface OpenActivity {
-	activity: ShowcaseActivityClass<ShowcaseActivityProps>;
-	position: OpenActivityPosition;
+export interface OpenWindow {
+	activity: ActivityClass<ActivityProps>;
+	position: OpenWindowPosition;
 }
 
-export interface ShowcaseActivityProps {
-	onActivityAction: (action: ShowcaseActivityAction, activityId: string, options?: object) => void;
+export interface ActivityProps extends React.Props<HTMLElement> {
+	availableActivities: ActivityClass<ActivityProps>[];
+	onWindowAction: (action: WindowAction, options?: object) => void;
 }
 
-export interface ShowcaseActivityClass<T extends ShowcaseActivityProps> {
-	new(props: any): ShowcaseActivity<T, any>;
+export interface ActivityClass<T extends ActivityProps> {
+	new(props: any): ActivityAdapter<T, any>;
 }
 
-export default ShowcaseActivity;
+export default ActivityAdapter;

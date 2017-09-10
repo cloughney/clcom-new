@@ -10,6 +10,6 @@ export default class Explorer extends React.Component<ExplorerProps, ExplorerSta
 	}
 
 	public render(): JSX.Element {
-		return (<div />);
+		return (<div style={{ width: '100%', height: '100%', background: 'blue' }} />);
 	}
 }

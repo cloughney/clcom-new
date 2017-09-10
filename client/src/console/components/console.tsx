@@ -40,6 +40,7 @@ export enum ConsoleTextLineType {
 }
 
 export default class Console extends React.Component<ConsoleProps, ConsoleState> {
+	private isComponentMounted: boolean;
 	private containerElement: HTMLDivElement;
 	private inputElement: HTMLInputElement;
 
@@ -86,6 +87,14 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 		);
 	}
 
+	public componentDidMount(): void {
+		this.isComponentMounted = true;
+	}
+
+	public componentWillUnmount(): void {
+		this.isComponentMounted = false;
+	}
+
 	private focusInput = (): void => {
 		this.containerElement.scrollTop = this.containerElement.scrollHeight;
 		this.inputElement.focus();
@@ -99,6 +108,8 @@ export default class Console extends React.Component<ConsoleProps, ConsoleState>
 
 		await this.writeOutput({ data: `${this.cursor} ${input}`, writeLine: true, forceNewLine: true });
 		await this.sendCommand(input);
+
+		if (!this.isComponentMounted) { return; }
 
 		this.setState({ isWorking: false });
 		this.focusInput();

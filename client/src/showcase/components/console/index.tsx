@@ -1,11 +1,11 @@
 import * as React from 'react';
-import ShowcaseActivity, { ShowcaseActivityProps, ShowcaseActivityAction } from '../showcase-activity';
+import ActivityAdapter, { ActivityProps, WindowAction } from '../showcase-activity';
 import Console, { ConsoleCommand, ConsoleTextLineType } from '../../../console';
 import handleCommand from './commands';
 
-interface Props extends ShowcaseActivityProps {}
+interface Props extends ActivityProps {}
 
-export default class ConsoleActivity extends ShowcaseActivity<Props, {}> {
+export default class ConsoleActivity extends ActivityAdapter<Props, {}> {
 	public constructor(props: Props) {
 		super(props);
 		this.state = {};
@@ -28,9 +28,14 @@ export default class ConsoleActivity extends ShowcaseActivity<Props, {}> {
 
 	private async onCommandReceived(command: ConsoleCommand): Promise<number> {
 		if (command.name == 'switch') {
-			command.stdout.writeLine(`switching to ${command.args[0]}...`);
-			this.props.onActivityAction(ShowcaseActivityAction.Open, command.args[0]);
-			return 0;
+			const activityName = command.args[0];
+			const activity = this.props.availableActivities.find(x => x.name.toLowerCase().replace('activity', '') === activityName);
+			if (activity) {
+				this.props.onWindowAction(WindowAction.Open, { activity });
+				return 0;
+			}
+
+			return 1;
 		}
 
 		return handleCommand(command);
