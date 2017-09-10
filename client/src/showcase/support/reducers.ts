@@ -1,9 +1,34 @@
 import { combineReducers, Reducer, AnyAction } from 'redux';
-import { AppState } from '../containers/showcase';
-import { Actions } from './actions';
-import { Activity, OpenWindow, WindowPosition } from '../components/activity-window';
+import * as Actions from './actions';
+import { Activity, ActivityProps, OpenWindow, WindowPosition } from '../components/activity-window';
 import ConsoleActivity from '../components/console';
 import ExplorerActivity from '../components/explorer';
+
+const defaultPosition: WindowPosition = {
+	x: 0,
+	y: 0,
+	width: 500,
+	height: 300,
+	isMaximized: true,
+	isMinimized: false
+};
+
+const defaultActivity: Activity = {
+	locator: 'console',
+	title: 'Console',
+	icon: 'microchip',
+	component: ConsoleActivity,
+};
+
+const availableActivities: ActivityProps['availableActivities'] = [
+	defaultActivity,
+	{
+		locator: 'explorer',
+		title: 'Item Explorer',
+		icon: 'folder-o',
+		component: ExplorerActivity
+	}
+];
 
 const openWindow = (state: AppState, activity: Activity): AppState => {
 	return {
@@ -11,13 +36,7 @@ const openWindow = (state: AppState, activity: Activity): AppState => {
 		openWindows: [
 			{
 				activity,
-				position: {
-					x: 0,
-					y: 0,
-					width: 500,
-					height: 300,
-					isMaximized: true
-				}
+				position: { ...defaultPosition }
 			},
 			...state.openWindows
 		]
@@ -44,35 +63,25 @@ const focusWindow = (state: AppState, windowHandle: OpenWindow): AppState => {
 const setWindowPosition = (state: AppState, windowHandle: OpenWindow, updates: Partial<WindowPosition>): AppState => {
 	return {
 		...state,
-		openWindows: state.openWindows.map(x => {
-			if (x !== windowHandle) {
-				return { ...x };
+		openWindows: state.openWindows.map(openWindow => {
+			if (openWindow !== windowHandle) {
+				return { ...openWindow };
 			}
 
-			return { ...x, position: { ...x.position, ...updates } };
+			return { ...openWindow, position: { ...openWindow.position, ...updates } };
 		})
 	};
 }
 
-const defaultActivity = {
-	locator: 'console',
-	title: 'Console',
-	icon: 'microchip',
-	component: ConsoleActivity,
-};
-
 const initialState: AppState = openWindow({
-	availableActivities: [
-		defaultActivity,
-		{
-			locator: 'explorer',
-			title: 'Item Explorer',
-			icon: 'folder-o',
-			component: ExplorerActivity
-		}
-	],
+	availableActivities,
 	openWindows: []
 }, defaultActivity);
+
+export type AppState = {
+	readonly availableActivities: ActivityProps['availableActivities'];
+	readonly openWindows: OpenWindow[];
+}
 
 export const reducer: Reducer<AppState> = (state: AppState, action: AnyAction) => {
 	state = state || initialState;
@@ -82,18 +91,20 @@ export const reducer: Reducer<AppState> = (state: AppState, action: AnyAction) =
 
 	let windowIndex: number;
 	switch (action.type) {
-		case 'OPEN_WINDOW':
+		case Actions.OPEN_WINDOW:
 			return openWindow(state, action.options.activity);
-		case 'CLOSE_WINDOW':
-			return closeWindow(state, action.options.window || action.window);
-		case 'FOCUS_WINDOW':
-			return focusWindow(state, action.options.window || action.window)
-		case 'MAXIMIZE_WINDOW':
-			return setWindowPosition(state, action.options.window || action.window, { isMaximized: true });
-		case 'RESTORE_WINDOW':
-			return setWindowPosition(state, action.options.window || action.window, { isMaximized: false });
-		case 'MOVE_WINDOW':
-			return setWindowPosition(state, action.options.window || action.window, { x: action.options.x, y: action.options.y });
+		case Actions.CLOSE_WINDOW:
+			return closeWindow(state, action.options.window);
+		case Actions.FOCUS_WINDOW:
+			return focusWindow(state, action.options.window);
+		case Actions.MINIMIZE_WINDOW:
+			return setWindowPosition(state, action.options.window, { isMinimized: true, isMaximized: false });
+		case Actions.MAXIMIZE_WINDOW:
+			return setWindowPosition(state, action.options.window, { isMinimized: false, isMaximized: true });
+		case Actions.RESTORE_WINDOW:
+			return setWindowPosition(state, action.options.window, { isMinimized: false, isMaximized: false });
+		case Actions.MOVE_WINDOW:
+			return setWindowPosition(state, action.options.window, { x: action.options.location.x, y: action.options.location.y });
 	}
 
 	return state;

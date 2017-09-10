@@ -3,12 +3,12 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
-import Showcase, { AppState, reducer } from '../showcase';
+import WindowManager, { AppState, reducer } from '../showcase';
 
 const store = createStore(reducer);
 
 render(
 	<Provider store={ store }>
-		<Showcase />
+		<WindowManager />
 	</Provider>,
 	document.querySelector('body .content .showcase'));

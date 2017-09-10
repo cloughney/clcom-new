@@ -7,15 +7,13 @@ type Props = {
 	window: ActivityProps['window'];
 }
 
+const stopPropagation = (e: React.SyntheticEvent<HTMLElement>) => e.stopPropagation();
+
 const getMaximizeToggleAction = (window: Props['window']): WindowAction =>
-	window.position.isMaximized
-		? WindowAction.Restore
-		: WindowAction.Maximize;
+	window.position.isMaximized ? WindowAction.Restore : WindowAction.Maximize;
 
 const getMaximizeToggleClassName = (window: Props['window']): string =>
-	window.position.isMaximized
-		? 'fa fa-window-restore'
-		: 'fa fa-window-maximize';
+	window.position.isMaximized ? 'fa fa-window-restore' : 'fa fa-window-maximize';
 
 const TitleBar: React.SFC<Props> = (props: Props): JSX.Element => (
 	<div className="titlebar" onMouseDown={ props.onMouseDown }>
@@ -26,13 +24,13 @@ const TitleBar: React.SFC<Props> = (props: Props): JSX.Element => (
 			}
 			{ props.window.activity.title }
 		</div>
-		<button onClick={ () => { props.onWindowAction(WindowAction.Close); } }>
+		<button onMouseDown={ stopPropagation } onClick={ () => { props.onWindowAction(WindowAction.Close); } }>
 			<i className="fa fa-window-close" />
 		</button>
-		<button onClick={ () => { props.onWindowAction(getMaximizeToggleAction(props.window)); } }>
+		<button onMouseDown={ stopPropagation } onClick={ () => { props.onWindowAction(getMaximizeToggleAction(props.window)); } }>
 			<i className={ getMaximizeToggleClassName(props.window) } />
 		</button>
-		<button onClick={ () => { props.onWindowAction(WindowAction.Minimize); } }>
+		<button onMouseDown={ stopPropagation } onClick={ () => { props.onWindowAction(WindowAction.Minimize); } }>
 			<i className="fa fa-window-minimize" />
 		</button>
 	</div>

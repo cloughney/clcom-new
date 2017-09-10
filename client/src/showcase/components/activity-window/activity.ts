@@ -15,6 +15,7 @@ export interface WindowPosition {
 	width: number;
 	height: number;
 	isMaximized: boolean;
+	isMinimized: boolean;
 }
 
 export type ActivityProps = {

@@ -1,5 +1,5 @@
-import Showcase from './containers/showcase';
+import WindowManager from './containers/window-manager';
 
-export * from './containers/showcase';
+export * from './containers/window-manager';
 export * from './support';
-export default Showcase;
+export default WindowManager;

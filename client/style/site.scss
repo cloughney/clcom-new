@@ -18,7 +18,7 @@
 
 body {
 	font-family: 'Source Sans Pro';
-	background: #fff;
+	background: $body-color;
 	color: $color-text;
 	border-top: 3px solid $primary-color;
 
@@ -26,7 +26,6 @@ body {
 		&:link {
 			line-height: 1.5em;
 			padding: 0px 3px;
-			//background: lightblue;
 			color: lightblue;
 			text-decoration: none;
 

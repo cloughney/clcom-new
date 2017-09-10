@@ -13,11 +13,13 @@
 		.titlebar {
 			user-select: none;
 			padding: 5px 10px;
-			background: linear-gradient(90deg, #ddd, adjust-hue(#ddd, -5deg));
+			background: linear-gradient(150deg, #f9f9f9, #e9e9e9);
+			color: #555;
 
 			.title {
 				display: inline;
 				font-size: 1em;
+				font-weight: bold;
 				line-height: 1.8em;
 				cursor: default;
 
@@ -40,14 +42,41 @@
 			}
 		}
 
-		&:nth-of-type(1) {
+		&.maximized, &:nth-of-type(1) {
 			.titlebar {
-				background: linear-gradient(90deg, $primary-color, adjust-hue($primary-color, -5deg));
+				background: #f4f4f4;
 			}
 		}
 
 		&:not(.maximized) {
   			box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+		}
+	}
+
+	ul.dock {
+		@extend .list-unstyled, .list-inline;
+		position: absolute;
+		bottom: 0;
+
+		li {
+			margin: 0 5px;
+			padding: 10px;
+			font-size: 1.2em;
+			font-weight: bold;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			background: linear-gradient(150deg, #f9f9f9, #e9e9e9);
+  			box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+			cursor: pointer;
+			user-select: none;
+			transition: 200ms;
+
+			i { padding-right: 5px; }
+
+			&:hover {
+				margin-bottom: 1px;
+	  			box-shadow: 0 4px 7px rgba(0,0,0,0.16), 0 4px 7px rgba(0,0,0,0.23);
+			}
 		}
 	}
 }
