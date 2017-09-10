@@ -1,16 +1,20 @@
 import * as React from 'react';
-import { asAdapter, AdapterProps, WindowAction } from '../activity-window';
+import { asAdapter, AdapterProps, WindowAction, Activity } from '../activity-window';
 import Console, { ConsoleCommand, ConsoleTextLineType } from '../../../console';
 import handleCommand from './commands';
 
-const onCommandReceived = async (command: ConsoleCommand): Promise<number> => {
-	if (command.name == 'switch') {
-		// const activityName = command.args[0];
-		// const activity = availableActivities.find(x => x.name.toLowerCase().replace('activity', '') === activityName);
-		// if (activity) {
-		// 	this.props.onWindowAction(WindowAction.Open, { activity });
-		// 	return 0;
-		// }
+const onCommandReceived = async (
+	command: ConsoleCommand,
+	activities: AdapterProps['availableActivities'],
+	onWindowAction: AdapterProps['onWindowAction']): Promise<number> => {
+
+	if (command.name.startsWith('./')) {
+		const activityName = command.name.slice(2);
+		const activity = activities.find(x => x.locator.toLowerCase() === activityName);
+		if (activity) {
+			onWindowAction(WindowAction.Open, { activity });
+			return 0;
+		}
 
 		return 1;
 	}
@@ -25,7 +29,7 @@ const welcomeMessage = [
 
 const ConsoleActivity: React.SFC<AdapterProps> = (props): JSX.Element => (
 	<div className="console">
-		<Console outputLines={ welcomeMessage } onCommandReceived={ command => onCommandReceived(command) } />
+		<Console outputLines={ welcomeMessage } onCommandReceived={ cmd => onCommandReceived(cmd, props.availableActivities, props.onWindowAction) } />
 	</div>
 )
 

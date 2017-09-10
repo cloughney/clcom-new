@@ -19,7 +19,7 @@ const getMaximizeToggleClassName = (window: Props['window']): string =>
 
 const TitleBar: React.SFC<Props> = (props: Props): JSX.Element => (
 	<div className="titlebar" onMouseDown={ props.onMouseDown }>
-		<div className="title">{ props.window.activity.name.replace('Activity', '') }</div>
+		<div className="title">{ props.window.activity.title }</div>
 		<button onClick={ () => { props.onWindowAction(WindowAction.Close); } }>
 			<i className="fa fa-window-close" />
 		</button>

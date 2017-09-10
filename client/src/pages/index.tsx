@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import Showcase, { AppState } from '../showcase/containers/showcase';
-import { ActivityComponent, OpenWindow, WindowPosition } from '../showcase/components/activity-window';
+import { Activity, OpenWindow, WindowPosition } from '../showcase/components/activity-window';
 import ConsoleActivity from '../showcase/components/console';
 import ExplorerActivity from '../showcase/components/explorer';
 
-const openWindow = (state: AppState, activity: ActivityComponent): AppState => {
+const openWindow = (state: AppState, activity: Activity): AppState => {
 	return {
 		...state,
 		openWindows: [
@@ -57,13 +57,23 @@ const setWindowPosition = (state: AppState, windowHandle: OpenWindow, updates: P
 	};
 }
 
+const defaultActivity = {
+	locator: 'console',
+	title: 'Console',
+	component: ConsoleActivity,
+};
+
 const initialState: AppState = openWindow({
 	availableActivities: [
-		ConsoleActivity,
-		ExplorerActivity
+		defaultActivity,
+		{
+			locator: 'explorer',
+			title: 'Item Explorer',
+			component: ExplorerActivity
+		}
 	],
 	openWindows: []
-}, ConsoleActivity);
+}, defaultActivity);
 
 const store = createStore((state: AppState, action) => {
 	state = state || initialState;
