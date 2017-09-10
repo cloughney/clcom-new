@@ -13,7 +13,8 @@ export enum WindowAction {
 	Restore,
 	Minimize,
 	Maximize,
-	Resize
+	Resize,
+	Move
 }
 
 export interface OpenWindowPosition {

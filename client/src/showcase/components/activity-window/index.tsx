@@ -5,7 +5,7 @@ interface Props extends ActivityProps {
 	availableActivities: ActivityClass<ActivityProps>[];
 	window: OpenWindow;
 	depth: number;
-	onWindowAction: (action: WindowAction, activity: OpenWindow, options?: object) => void;
+	onWindowAction: (action: WindowAction, options?: object) => void;
 }
 
 interface State {
@@ -54,28 +54,25 @@ export default class ActivityWindow extends ShowcaseActivity<Props, State> {
 
 	public render(): JSX.Element {
 		return (
-			<div
-				ref={ ref => { this.element = ref; } }
-				className="activity"
-				style={ this.state.windowStyle }>
+			<div ref={ ref => { this.element = ref; } } className={ `activity ${ this.isWindowMaximized ? 'maximized' : '' }` } style={ this.state.windowStyle } onMouseDown={ this.onFocus }>
 				<div className="titlebar" onMouseDown={ this.onMouseDown }>
-					<div className="title">Console</div>
-					<button onClick={ () => { this.props.onWindowAction(WindowAction.Close, this.props.window); } }>
+					<div className="title">{ this.props.window.activity.name.replace('Activity', '') }</div>
+					<button onClick={ () => { this.props.onWindowAction(WindowAction.Close); } }>
 						<i className="fa fa-window-close" />
 					</button>
 					<button onClick={ () => {
 						const action = this.isWindowMaximized ? WindowAction.Restore : WindowAction.Maximize;
-						this.props.onWindowAction(action, this.props.window);
+						this.props.onWindowAction(action);
 					} }>
 						<i className={ this.isWindowMaximized ? 'fa fa-window-restore' : 'fa fa-window-maximize' } />
 					</button>
-					<button onClick={ () => { this.props.onWindowAction(WindowAction.Minimize, this.props.window); } }>
+					<button onClick={ () => { this.props.onWindowAction(WindowAction.Minimize); } }>
 						<i className="fa fa-window-minimize" />
 					</button>
 				</div>
 				<this.props.window.activity
 					availableActivities={ this.props.availableActivities }
-					onWindowAction={ (action, options) => { this.props.onWindowAction(action, this.props.window, options); } } />
+					onWindowAction={ (action, options) => { this.props.onWindowAction(action, options); } } />
 			</div>
 		);
 	}
@@ -97,13 +94,19 @@ export default class ActivityWindow extends ShowcaseActivity<Props, State> {
 		}
 	}
 
+	private onFocus = (): void => {
+		if (this.props.depth !== 0) {
+			this.props.onWindowAction(WindowAction.Focus);
+		}
+	}
+
 	private onMouseDown = (e: React.MouseEvent<any>): void => {
 		if (this.state.isMoving || this.props.window.position.isMaximized) { return; }
 		e.preventDefault();
 
 		const top = e.clientY - this.element.offsetTop;
 		const left = e.clientX - this.element.offsetLeft;
-		
+
 		this.setState({
 			isMoving: true,
 			offset: { top, left }
@@ -114,19 +117,19 @@ export default class ActivityWindow extends ShowcaseActivity<Props, State> {
 		if (!this.state.isMoving || this.props.window.position.isMaximized) { return; }
 		e.preventDefault();
 
-		console.log('end');
 		this.setState({ isMoving: false });
+		this.props.onWindowAction(WindowAction.Move, {
+			x: this.element.offsetLeft,
+			y: this.element.offsetTop
+		});
 	}
 
 	private onMouseMove = (e: MouseEvent): void => {
 		if (!this.state.isMoving) { return; }
 		e.preventDefault();
 
-		const x = this.element.clientLeft + (e.clientX - this.state.offset.left);
-		const y = this.element.clientTop + (e.clientY - this.state.offset.top);
-
-		console.log(`e: ${this.element.offsetLeft}, ${this.element.offsetTop}`)
-		console.log(`f: ${x}, ${y}`);
+		const x = e.clientX - this.state.offset.left;
+		const y = e.clientY - this.state.offset.top;
 
 		this.setState((state, props) => ({
 			...state,

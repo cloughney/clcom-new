@@ -8,9 +8,11 @@
 	}
 
 	.activity {
+		border-radius: 10px;
+
 		.titlebar {
 			padding: 5px;
-			background: #ddd;
+			background: linear-gradient(90deg, #ddd, adjust-hue(#ddd, -5deg));
 
 			.title {
 				display: inline;
@@ -26,6 +28,16 @@
 				background: none;
 				border: none;
 			}
+		}
+
+		&:nth-of-type(1) {
+			.titlebar {
+				background: linear-gradient(90deg, $primary-color, adjust-hue($primary-color, -5deg));
+			}
+		}
+
+		&:not(.maximized) {
+			box-shadow: #666 1px 1px 5px;
 		}
 	}
 }

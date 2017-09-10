@@ -27,20 +27,30 @@ const openWindow = (state: AppState, activity: ActivityClass<ActivityProps>): Ap
 	};
 }
 
-const closeWindow = (state: AppState, activity: ActivityClass<ActivityProps>): AppState => {
+const closeWindow = (state: AppState, windowHandle: OpenWindow): AppState => {
 	return {
 		...state,
-		openWindows: state.openWindows.filter(x => x.activity !== activity)
+		openWindows: state.openWindows.filter(x => x !== windowHandle)
 	};
 }
 
-const setWindowPosition = (state: AppState, windowHandle: OpenWindow, propName: keyof OpenWindowPosition, value: any): AppState => {
+const focusWindow = (state: AppState, windowHandle: OpenWindow): AppState => {
+	return {
+		...state,
+		openWindows: [
+			windowHandle,
+			...state.openWindows.filter(x => x !== windowHandle)
+		]
+	}
+}
+
+const setWindowPosition = (state: AppState, windowHandle: OpenWindow, updates: Partial<OpenWindowPosition>): AppState => {
 	return {
 		...state,
 		openWindows: [
 			{
 				...windowHandle,
-				position: { ...windowHandle.position, [propName]: value }
+				position: { ...windowHandle.position, ...updates }
 			},
 			...state.openWindows.filter(x => x !== windowHandle)
 		]
@@ -59,24 +69,22 @@ const store = createStore((state: AppState, action) => {
 	state = state || initialState;
 	action.options = action.options || {};
 
-	console.dir(action);
+	console.log(action);
 
 	let windowIndex: number;
 	switch (action.type) {
 		case 'OPEN_WINDOW':
 			return openWindow(state, action.options.activity);
 		case 'CLOSE_WINDOW':
-			return closeWindow(state, action.options.activity || action.window.activity);
+			return closeWindow(state, action.options.window || action.window);
 		case 'FOCUS_WINDOW':
-			break;
+			return focusWindow(state, action.options.window || action.window)
 		case 'MAXIMIZE_WINDOW':
-			let o = setWindowPosition(state, action.window, 'isMaximized', true);
-			console.dir(o);
-			return o;
+			return setWindowPosition(state, action.options.window || action.window, { isMaximized: true });
 		case 'RESTORE_WINDOW':
-			let x = setWindowPosition(state, action.window, 'isMaximized', false);
-			console.dir(x);
-			return x;
+			return setWindowPosition(state, action.options.window || action.window, { isMaximized: false });
+		case 'MOVE_WINDOW':
+			return setWindowPosition(state, action.options.window || action.window, { x: action.options.x, y: action.options.y });
 	}
 
 	return state;

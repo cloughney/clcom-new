@@ -20,6 +20,7 @@ actionToTypeMap.set(WindowAction.Maximize, 'MAXIMIZE_WINDOW');
 actionToTypeMap.set(WindowAction.Minimize, 'MINIMIZE_WINDOW');
 actionToTypeMap.set(WindowAction.Restore, 'RESTORE_WINDOW');
 actionToTypeMap.set(WindowAction.Resize, 'RESIZE_WINDOW');
+actionToTypeMap.set(WindowAction.Move, 'MOVE_WINDOW');
 
 function mapStateToProps(state: AppState): Partial<ShowcaseProps> {
 	return {
@@ -49,7 +50,7 @@ class Showcase extends React.Component<ShowcaseProps, ShowcaseState> {
 			.map((x, i) => (
 				<ActivityWindow key={ i } window={ x } depth={ i }
 					availableActivities={ this.props.availableActivities }
-					onWindowAction={ this.props.onWindowAction } />
+					onWindowAction={ (action, options) => { this.props.onWindowAction(action, x, options) } } />
 				));
 
 		return (<div>{ activities }</div>);
