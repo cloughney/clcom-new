@@ -1,3 +1,8 @@
+export type ActivityProps = {
+	availableActivities: Activity[];
+	onWindowAction: (action: WindowAction, options?: object) => void;
+}
+
 export enum WindowAction {
 	Open,
 	Close,
@@ -16,13 +21,6 @@ export interface WindowPosition {
 	height: number;
 	isMaximized: boolean;
 	isMinimized: boolean;
-}
-
-export type ActivityProps = {
-	availableActivities: Activity[];
-	window: OpenWindow;
-	depth: number;
-	onWindowAction: (action: WindowAction, options?: object) => void;
 }
 
 export type ActivityComponent = React.ComponentType<ActivityProps>;

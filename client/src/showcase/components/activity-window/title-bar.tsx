@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { OpenWindow, WindowAction, ActivityProps } from './activity';
+import { OpenWindow, WindowAction, ActivityProps } from './types';
 
 type Props = {
 	onMouseDown: React.MouseEventHandler<HTMLDivElement>;
 	onWindowAction: ActivityProps['onWindowAction'];
-	window: ActivityProps['window'];
+	window: OpenWindow;
 }
 
 const stopPropagation = (e: React.SyntheticEvent<HTMLElement>) => e.stopPropagation();

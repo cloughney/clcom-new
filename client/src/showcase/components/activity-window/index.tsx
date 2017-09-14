@@ -1,2 +1,4 @@
-export * from './activity';
-export * from './adapter';
+import ActivityWindow from './activity-window';
+export * from './activity-window';
+export * from './types';
+export default ActivityWindow;

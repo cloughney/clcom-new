@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { asAdapter, AdapterProps } from '../activity-window';
+import { ActivityProps } from '../activity-window';
 import Explorer from '../../../item-explorer';
 
-class ExplorerActivity extends React.Component<AdapterProps> {
-	public constructor(props: AdapterProps) {
+class ExplorerActivity extends React.Component<ActivityProps> {
+	public constructor(props: ActivityProps) {
 		super(props);
 		this.state = {};
 	}
@@ -13,4 +13,4 @@ class ExplorerActivity extends React.Component<AdapterProps> {
 	}
 }
 
-export default asAdapter(ExplorerActivity);
+export default ExplorerActivity;

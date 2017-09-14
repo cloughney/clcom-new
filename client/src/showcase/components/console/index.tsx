@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { asAdapter, AdapterProps, WindowAction, Activity } from '../activity-window';
+import { ActivityProps, WindowAction, Activity } from '../activity-window';
 import Console, { ConsoleCommand, ConsoleTextLineType } from '../../../console';
 import handleCommand from './commands';
 
 const onCommandReceived = async (
 	command: ConsoleCommand,
-	activities: AdapterProps['availableActivities'],
-	onWindowAction: AdapterProps['onWindowAction']): Promise<number> => {
+	activities: ActivityProps['availableActivities'],
+	onWindowAction: ActivityProps['onWindowAction']): Promise<number> => {
 
 	if (command.name.startsWith('./')) {
 		const activityName = command.name.slice(2);
@@ -27,10 +27,10 @@ const welcomeMessage = [
 	{ text: 'Type \'help\' to see available commands.', type: ConsoleTextLineType.Standard, hasEol: true }
 ];
 
-const ConsoleActivity: React.SFC<AdapterProps> = (props): JSX.Element => (
+const ConsoleActivity: React.SFC<ActivityProps> = (props): JSX.Element => (
 	<div className="console">
 		<Console outputLines={ welcomeMessage } onCommandReceived={ cmd => onCommandReceived(cmd, props.availableActivities, props.onWindowAction) } />
 	</div>
 )
 
-export default asAdapter(ConsoleActivity);
+export default ConsoleActivity;

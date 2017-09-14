@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Action, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { AppState, actionFactory } from '../support';
-import { Activity, ActivityProps, OpenWindow, WindowAction } from '../components/activity-window';
+import ActivityWindow, { Activity, ActivityProps, OpenWindow, WindowAction } from '../components/activity-window';
 
 type Props = {
 	availableActivities: AppState['availableActivities'];
@@ -56,7 +56,7 @@ const WindowManager: React.SFC<Props> = (props: Props): JSX.Element => {
 	const openWindows = props.openWindows
 		.filter(x => !x.position.isMinimized)
 		.map((openWindow, i) => (
-			<openWindow.activity.component
+			<ActivityWindow
 				key={ i } depth={ i } window={ openWindow }
 				availableActivities={ props.availableActivities }
 				onWindowAction={ (action, options) => { props.onWindowAction(action, openWindow, options) } } />
