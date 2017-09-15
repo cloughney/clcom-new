@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ActivityProps, WindowAction, Activity } from '../activity-window';
-import Console, { ConsoleCommand, ConsoleTextLineType } from '../../../console';
+import Console, { ConsoleCommand, ConsoleTextLineType } from 'react-console';
 import handleCommand from './commands';
 
 const onCommandReceived = async (

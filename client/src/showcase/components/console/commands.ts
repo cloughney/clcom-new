@@ -1,4 +1,4 @@
-import { ConsoleTextLineType, ConsoleCommand } from '../../../console';
+import { ConsoleTextLineType, ConsoleCommand } from 'react-console';
 
 interface ConsoleCommandExecutable {
 	name: string;
