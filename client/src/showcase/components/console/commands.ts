@@ -1,3 +1,4 @@
+import { Activity, ActivityProps } from '../activity-window';
 import { ConsoleTextLineType, ConsoleCommand } from 'react-console';
 
 interface ConsoleCommandExecutable {
@@ -34,8 +35,18 @@ const exeNotFound = async (cmd: any): Promise<number> => {
 	return Promise.resolve(1);
 };
 
-export default function onCommandReceived(command: ConsoleCommand): Promise<number> {
-	const matchedCommand = commands.get(command.name);
-	const exe = matchedCommand ? matchedCommand.exe : exeNotFound;
-	return exe(command);
+export default function createCommandHandler(activities: Activity[], openWindow: (activity: Activity) => void) {
+	activities.forEach(x => {
+		commands.set(x.locator, {
+			name: x.locator,
+			description: x.title,
+			exe: async cmd => { openWindow(x); return 0; }
+		});
+	});
+
+	return (command: ConsoleCommand): Promise<number> => {
+		const matchedCommand = commands.get(command.name);
+		const exe = matchedCommand ? matchedCommand.exe : exeNotFound;
+		return exe(command);
+	};
 }
