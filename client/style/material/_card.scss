@@ -8,10 +8,6 @@
 
 	transition: all 300ms;
 
-	article {
-
-	}
-
 	@for $i from 1 through 4 {
 		&.layer-#{$i} {
 			@include layer($i - 1);

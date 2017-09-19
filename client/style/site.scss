@@ -11,6 +11,7 @@
 @import 'components/button';
 @import 'components/console';
 @import 'components/feed';
+@import 'components/link';
 @import 'content';
 @import 'sidebar';
 
@@ -30,7 +31,7 @@ body {
 			color: lightblue;
 			text-decoration: none;
 
-			&.big {
+			&.large {
 				font-size: 1.3em;
 			}
 		}

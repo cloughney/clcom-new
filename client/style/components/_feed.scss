@@ -6,10 +6,12 @@ body {
 			padding: 10px 15px;
 
 			> ul {
-				@extend .list-inline, .list-unstyled;
+				@extend .list-inline;
+				@extend .list-unstyled;
 
 				li {
-					@extend .col-md-4, .col-xs-12;
+					@extend .col-md-4;
+					@extend .col-xs-12;
 					padding: 5px 2px;
 
 					> .card {
