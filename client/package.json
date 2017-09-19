@@ -4,11 +4,10 @@
   "description": "A personal website for Chris Loughney.",
   "main": "index.js",
   "scripts": {
-    "build": "npm run webpack",
+    "build": "rimraf dist && webpack",
     "start": "npm run build && webpack-dev-server",
-    "test": "cross-env NODE_ENV=test karma start",
-    "watch": "webpack --watch",
-    "webpack": "webpack"
+    "test": "npm run build && cross-env NODE_ENV=test karma start",
+    "watch": "rimraf dist && webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -60,6 +59,7 @@
     "react-console": "https://github.com/cloughney/react-console",
     "react-test-renderer": "^15.5.4",
     "react-window-manager": "https://github.com/cloughney/react-window-manager",
+    "rimraf": "^2.6.2",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.18.2",
     "typescript": "^2.3.2",

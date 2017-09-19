@@ -27,7 +27,8 @@ function getPageConfig(env, {
 			'resume': { href: createEnvironmentLink('/resume.html', env), isActive: pageName === 'resume' },
 			'blog': { href: '//blog.chrisloughney.com' },
 			'github': { href: '//github.com/cloughney' },
-			'linkedin': { href: '//www.linkedin.com/pub/christopher-loughney/5a/363/6b/' }
+			'linkedin': { href: '//www.linkedin.com/pub/christopher-loughney/5a/363/6b/' },
+			'downloadResume': { href: 'https://cloud.krik.co/s/5QUvghOZiUD3uUe' }
 		}
 	};
 }

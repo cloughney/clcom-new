@@ -2,16 +2,16 @@
 	padding: 25px;
 
 	div.download {
+		@include fancy-buttons;
+
 		text-align: center;
 
 		a {
-			@extend .btn, .btn-default, .btn-lg;
 			margin: 20px 0;
 
-			font-size: 1.5em;
-
-			> span {
-			 @extend .glyphicon, .glyphicon-file;
+			> i {
+				@extend .glyphicon;
+				@extend .glyphicon-file;
 			}
 		}
 	}

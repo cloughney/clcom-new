@@ -1,0 +1,32 @@
+@mixin fancy-buttons {
+    @mixin button-overrides {
+        border: none;
+        border-radius: 0;
+        background: linear-gradient(-25deg, $primary-color, adjust-hue($primary-color, -7deg));
+    }
+
+    a[role=button], button {
+        @extend .btn; 
+        @extend .btn-default;
+        @include button-overrides;
+    
+        color: $text-color;
+        font-weight: bold;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        user-select: none;
+        transition: 200ms;
+        padding: 10px;
+    
+        &.large {
+            @extend .btn-lg;
+            @include button-overrides;
+            font-size: 1.5em;
+        }
+    
+        &:hover {
+            transform: translateY(-2px);
+            filter: brightness(130%);
+            box-shadow: 0 4px 7px rgba(0,0,0,0.16), 0 4px 7px rgba(0,0,0,0.23);
+        }
+    }
+}
