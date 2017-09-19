@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AnyAction } from 'redux'
-import { Activity, OpenWindow } from '../components/activity-window';
+import { Activity, OpenWindow } from 'react-window-manager';
 
 export const OPEN_WINDOW = 'OPEN_WINDOW';
 export const CLOSE_WINDOW = 'CLOSE_WINDOW';

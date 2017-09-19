@@ -1,4 +1,4 @@
-import { Activity, ActivityProps } from '../activity-window';
+import { Activity, ActivityProps } from 'react-window-manager';
 import { ConsoleTextLineType, ConsoleCommand } from 'react-console';
 
 interface ConsoleCommandExecutable {

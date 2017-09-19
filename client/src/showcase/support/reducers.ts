@@ -1,8 +1,9 @@
 import { combineReducers, Reducer, AnyAction } from 'redux';
+import { Activity, ActivityProps, OpenWindow, WindowPosition } from 'react-window-manager';
+
 import * as Actions from './actions';
-import { Activity, ActivityProps, OpenWindow, WindowPosition } from '../components/activity-window';
-import ConsoleActivity from '../components/console';
-import ExplorerActivity from '../components/explorer';
+import ConsoleActivity from '../components/activities/console';
+import ExplorerActivity from '../components/activities/item-explorer';
 
 const defaultPosition: WindowPosition = {
 	x: 0,

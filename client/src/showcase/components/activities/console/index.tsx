@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ActivityProps, WindowAction, Activity } from '../activity-window';
+import { Activity, ActivityProps, WindowAction } from 'react-window-manager';
 import Console, { ConsoleCommand, ConsoleTextLineType } from 'react-console';
 import createCommandHandler from './commands';
 

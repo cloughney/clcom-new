@@ -1,5 +1,6 @@
 import { Action, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import WindowManager, { WindowAction, WindowManagerProps as Props } from 'react-window-manager';
 import { AppState, actionFactory } from './support';
 
 function mapStateToProps(state: AppState): Partial<Props> {
@@ -43,3 +44,10 @@ function mapDispatchToProps(dispatch: Dispatch<Action>): Partial<Props> {
 		}
 	};
 }
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(WindowManager);
+
+export * from './support';
