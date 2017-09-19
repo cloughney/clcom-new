@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { ActivityProps } from 'react-window-manager';
+import { ActivityProps, WindowAction } from 'react-window-manager';
 
-interface State {}
+const ExplorerActivity: React.SFC<ActivityProps> = props => (
+	<div className="item-explorer">
+		<ul>
+			{ props.availableActivities.filter(x => x.component !== ExplorerActivity).map(x => (
+				<li onClick={ e => props.onWindowAction(WindowAction.Open, { activity: x }) }>
+					<i className={ `fa-${x.icon}` } />
+					<span>{ x.title }</span>
+				</li>
+			)) }
+		</ul>
+	</div>
+)
 
-export default class Explorer extends React.Component<ActivityProps, State> {
-	public constructor(props: ActivityProps) {
-		super(props);
-		this.state = {};
-	}
-
-	public render(): JSX.Element {
-		return (<div style={{ width: '100%', height: '100%', background: 'blue' }} />);
-	}
-}
+export default ExplorerActivity;

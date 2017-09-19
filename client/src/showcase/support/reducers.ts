@@ -15,19 +15,19 @@ const defaultPosition: WindowPosition = {
 };
 
 const defaultActivity: Activity = {
-	locator: 'console',
-	title: 'Console',
-	icon: 'microchip',
-	component: ConsoleActivity,
+	locator: 'explorer',
+	title: 'Item Explorer',
+	icon: 'folder-o',
+	component: ExplorerActivity
 };
 
 const availableActivities: ActivityProps['availableActivities'] = [
 	defaultActivity,
 	{
-		locator: 'explorer',
-		title: 'Item Explorer',
-		icon: 'folder-o',
-		component: ExplorerActivity
+		locator: 'console',
+		title: 'Console',
+		icon: 'microchip',
+		component: ConsoleActivity,
 	}
 ];
 

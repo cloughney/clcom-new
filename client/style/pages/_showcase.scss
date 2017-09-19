@@ -7,9 +7,39 @@
 		font-size: 1.1em;
 	}
 
-	.activity {
-		border-radius: 5px;
+	.item-explorer {
+		width: 100%;
+		height: 100%;
+		background: #fafafa;
+		padding: 10px;
 
+		ul {
+			@extend .list-unstyled;
+			@extend .list-inline;
+
+			li {
+				padding: 15px 25px;
+				cursor: pointer;
+				line-height: 2em;
+
+				i {
+					@extend .fa;
+					@extend .fa-fw;
+					font-size: 2em;
+				}
+
+				span {
+					font-size: 1.3em;
+				}
+
+				&:hover {
+					background: #eee;
+				}
+			}
+		}
+	}
+
+	.activity {
 		.titlebar {
 			user-select: none;
 			padding: 5px 10px;
