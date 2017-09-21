@@ -2,7 +2,7 @@
     @mixin button-overrides {
         border: none;
         border-radius: 0;
-        background: linear-gradient(-25deg, $primary-color, adjust-hue($primary-color, -7deg));
+        background: linear-gradient(adjust-hue($primary-color, -5deg), $primary-color);
     }
 
     a[role=button], button {
@@ -10,8 +10,11 @@
         @extend .btn-default;
         @include button-overrides;
     
-        color: rgba(51, 51, 51, 0.8);
-        text-shadow: 1px 1px 1px #bbb;
+        $text-color: rgba(245, 245, 245, 0.95);
+        $text-shadow: 1px 1px 1px #666;
+
+        color: $text-color;
+        text-shadow: $text-shadow;
         font-weight: bold;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
         user-select: none;
@@ -26,8 +29,10 @@
     
         &:hover {
             transform: translateY(-2px);
-            filter: brightness(130%);
+            filter: brightness(105%);
             box-shadow: 0 4px 7px rgba(0, 0, 0, 0.16), 0 4px 7px rgba(0, 0, 0, 0.23);
+            color: $text-color;
+            text-shadow: $text-shadow;
         }
     }
 }
