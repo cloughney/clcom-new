@@ -2,12 +2,9 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import Showcase, { AppState, reducer } from '../showcase';
+import Showcase from '../showcase';
 
-const store = createStore(reducer);
+// const store = createStore(reducer);
+// <Provider store={ store }></Provider>
 
-render(
-	<Provider store={ store }>
-		<Showcase />
-	</Provider>,
-	document.querySelector('body .content .showcase'));
+render(<Showcase />, document.querySelector('body .content .showcase'));

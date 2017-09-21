@@ -2,7 +2,7 @@
     @mixin button-overrides {
         border: none;
         border-radius: 0;
-        background: linear-gradient(adjust-hue($primary-color, -5deg), $primary-color);
+        background: linear-gradient(adjust-hue($primary-color, -7deg), $primary-color);
     }
 
     a[role=button], button {
@@ -10,7 +10,7 @@
         @extend .btn-default;
         @include button-overrides;
     
-        $text-color: rgba(245, 245, 245, 0.95);
+        $text-color: hsla(0, 0, 100%, 0.95);
         $text-shadow: 1px 1px 1px #666;
 
         color: $text-color;
@@ -29,7 +29,7 @@
     
         &:hover {
             transform: translateY(-2px);
-            filter: brightness(105%);
+            filter: brightness(110%);
             box-shadow: 0 4px 7px rgba(0, 0, 0, 0.16), 0 4px 7px rgba(0, 0, 0, 0.23);
             color: $text-color;
             text-shadow: $text-shadow;
