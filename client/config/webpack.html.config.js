@@ -28,7 +28,7 @@ function getPageConfig(env, {
 			'blog': { href: '//blog.chrisloughney.com' },
 			'github': { href: '//github.com/cloughney' },
 			'linkedin': { href: '//www.linkedin.com/pub/christopher-loughney/5a/363/6b/' },
-			'downloadResume': { href: 'https://cloud.krik.co/s/5QUvghOZiUD3uUe' }
+			'download-resume': { href: 'https://cloud.krik.co/s/5QUvghOZiUD3uUe' }
 		}
 	};
 }

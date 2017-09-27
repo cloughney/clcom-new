@@ -122,7 +122,12 @@ module.exports = {
 		}, {
 			test: /\.hbs$/,
 			exclude: [path.resolve('node_modules')],
-			use: 'handlebars-loader'
+			use: {
+				loader: 'handlebars-loader',
+				options: {
+					helperDirs: path.resolve('html/helpers')
+				}
+			}
 		}, {
 			test: /\.(png|jpe?g|gif|svg|eot|woff|woff2|ttf)(\?.*)?$/,
 			include: [

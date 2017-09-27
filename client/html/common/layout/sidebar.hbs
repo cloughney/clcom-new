@@ -5,16 +5,16 @@
 		</a>
 	</div>
 	<div class="title">
-		<a href="{{ links.showcase.href }}">Chris Loughney</a>
+		<a href="{{ href "showcase" links }}">Chris Loughney</a>
 	</div>
 
 	<div class="menu">
 		<ul>
 			<li class="menu-item {{# if links.showcase.isActive }}active{{/ if }}">
-				<a href="{{ links.showcase.href }}">Showcase</a>
+				<a href="{{ href "showcase" links }}">Showcase</a>
 			</li>
 			<li class="menu-item {{# if links.resume.isActive }}active{{/ if }}">
-				<a href="{{ links.resume.href }}">Resume</a>
+				<a href="{{ href "resume" links }}">Resume</a>
 			</li>
 		</ul>
 	</div>
@@ -22,12 +22,12 @@
 	<div class="social">
 		<ul>
 			<li>
-				<a href="{{ links.github.href }}">
+				<a href="{{ href "github" links }}">
 					<i class="fa fa-github"></i>GitHub
 				</a>
 			</li>
 			<li>
-				<a href="{{ links.linkedin.href }}">
+				<a href="{{ href "linkedin" links }}">
 					<i class="fa fa-linkedin-square"></i>LinkedIn
 				</a>
 			</li>
