@@ -73,8 +73,7 @@ const Showcase: React.SFC = () => (
 				y: 0,
 				width: 400,
 				height: 300,
-				isMaximized: true,
-				isMinimized: false
+				state: 'MAXIMIZED'
 			}
 		}] }/>
 )
