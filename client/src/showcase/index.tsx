@@ -59,7 +59,13 @@ const availableActivities: ActivityProps['availableActivities'] = [
 		locator: 'console',
 		title: 'Console',
 		icon: 'microchip',
-		component: ConsoleActivity,
+		component: ConsoleActivity
+	},
+	{
+		locator: 'view-source',
+		title: 'View Source',
+		icon: 'code',
+		component: ConsoleActivity
 	}
 ];
 

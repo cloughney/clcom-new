@@ -6,21 +6,23 @@
     }
 
     a[role=button], button {
-        @extend .btn; 
-        @extend .btn-default;
-        @include button-overrides;
-    
         $text-color: hsla(0, 0, 100%, 0.95);
         $text-shadow: 1px 1px 1px #666;
 
-        color: $text-color;
-        text-shadow: $text-shadow;
-        font-weight: bold;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-        user-select: none;
-        transition: 200ms;
-        padding: 10px;
+        @extend .btn; 
+        //@extend .btn-default;
+        @include button-overrides;
     
+        &, &:active, &:focus, &:visited, &:link {
+            color: $text-color;
+            text-shadow: $text-shadow;
+            font-weight: bold;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+            user-select: none;
+            transition: 200ms;
+            padding: 10 15px;
+        }
+
         &.large {
             @extend .btn-lg;
             @include button-overrides;
