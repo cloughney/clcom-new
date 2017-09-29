@@ -1,13 +1,20 @@
 import * as React from 'react';
 import { ActivityProps, WindowAction } from 'react-window-manager';
 
-export default class ItemExplorerActivity extends React.Component<ActivityProps> {
+type State = {
+	activePointerThings: { type: string, text: string }[];
+};
+
+export default class ItemExplorerActivity extends React.Component<ActivityProps, State> {
 	public constructor(props: ActivityProps) {
 		super(props);
+		this.state = {
+			activePointerThings: []
+		};
 	}
 
 	public render(): JSX.Element {
-		const pointerThings = this.getActivePointerThings().map((x, i) => 
+		const pointerThings = this.state.activePointerThings.map((x, i) => 
 			(<div key={ i } className={ `pointer-thing ${x.type}` }><i />{ x.text }</div>));
 
 		return (
@@ -28,11 +35,5 @@ export default class ItemExplorerActivity extends React.Component<ActivityProps>
 				</ul>
 			</div>
 		);
-	}
-
-	private getActivePointerThings(): { type: string, text: string }[] {
-		return [
-			{ type: 'restore', text: 'Try restoring this window.' }
-		];
 	}
 }
