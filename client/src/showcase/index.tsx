@@ -2,6 +2,7 @@ import * as React from 'react';
 import WindowManager, { Activity, ActivityProps } from 'react-window-manager';
 import ConsoleActivity from './components/activities/console';
 import ExplorerActivity from './components/activities/item-explorer';
+import ViewSourceActivity from './components/activities/view-source';
 // import { AppState, actionFactory } from './support';
 
 // function mapStateToProps(state: AppState): Partial<Props> {
@@ -65,7 +66,7 @@ const availableActivities: ActivityProps['availableActivities'] = [
 		locator: 'view-source',
 		title: 'View Source',
 		icon: 'code',
-		component: ConsoleActivity
+		component: ViewSourceActivity
 	}
 ];
 

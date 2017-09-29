@@ -9,8 +9,8 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 import * as project from './package.json';
 
-import env from './config/webpack.env.config';
-import { getPlugins as getHtmlPlugins } from './config/webpack.html.config';
+import env from './build/webpack.env.config';
+import { getPlugins as getHtmlPlugins } from './build/webpack.html.config';
 
 const paths = {
 	root: path.resolve(),
