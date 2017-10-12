@@ -20,8 +20,8 @@ const paths = {
 
 const entries = env.isTesting ? undefined : {
 	'style': ['./style/site.scss'],
-	'index': ['./src/pages/index'],
-	'libs': [
+	'showcase': ['./src/pages/showcase'],
+	'react': [
 		'react',
 		'react-dom',
 		'react-router-dom'
@@ -51,7 +51,7 @@ if (env.isTesting) {
 			allChunks: true
 		}),
 		new webpack.optimize.CommonsChunkPlugin({
-			name: 'libs',
+			name: 'react',
 			minChunks: Infinity
 		}),
 		new CopyWebpackPlugin([

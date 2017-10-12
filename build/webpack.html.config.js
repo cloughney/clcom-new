@@ -2,8 +2,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export function getPlugins(env) {
 	return [
-		createPagePlugin('html/index.hbs', ['libs', 'index'], env, { options: { pageName: 'showcase' } }),
-		createPagePlugin('html/resume.hbs', [], env, { options: { pageName: 'resume' } })
+		createPagePlugin('html/resume.hbs', [], env, { filename: 'index.html', options: { pageName: 'resume' } }),
+		createPagePlugin('html/showcase.hbs', ['react', 'showcase'], env, { options: { pageName: 'showcase' } })
 	];
 }
 
@@ -23,8 +23,8 @@ function getPageConfig(env, {
 	return {
 		includeDevServer: env.isDevelopment,
 		links: {
-			'showcase': { href: '/', isActive: pageName === 'showcase' },
-			'resume': { href: createEnvironmentLink('/resume.html', env), isActive: pageName === 'resume' },
+			'resume': { href: createEnvironmentLink('/', env), isActive: pageName === 'resume' },
+			'showcase': { href: '/showcase.html', isActive: pageName === 'showcase' },
 			'blog': { href: '//blog.chrisloughney.com' },
 			'github': { href: '//github.com/cloughney' },
 			'linkedin': { href: '//www.linkedin.com/pub/christopher-loughney/5a/363/6b/' },
