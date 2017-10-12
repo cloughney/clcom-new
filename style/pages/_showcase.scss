@@ -7,6 +7,30 @@
 		font-size: 1.1em;
 	}
 
+	.view-source {
+		width: 100%;
+		height: 100%;
+		padding: 25px;
+		background: #fff;
+		overflow-y: auto;
+		
+		p {
+			color: #999;
+		}
+
+		ul {
+			@extend .list-unstyled;
+			@include fancy-links;
+
+			margin: 25px 0 25px 25px;
+			font-size: 1.2em;
+
+			li {
+				margin: 10px 0;
+			}
+		}
+	}
+
 	.item-explorer {
 		width: 100%;
 		height: 100%;
