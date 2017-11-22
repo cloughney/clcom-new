@@ -10,7 +10,7 @@ const welcomeMessage = [
 
 const ConsoleActivity: React.SFC<ActivityProps> = ({ availableActivities, onWindowAction }) => (
 	<div className="console">
-		<Console outputLines={ welcomeMessage } onCommandReceived={ createCommandHandler(availableActivities, activity => onWindowAction(WindowAction.Open, { activity })) } />
+		<Console outputLines={ [...welcomeMessage] } onCommandReceived={ createCommandHandler(availableActivities, activity => onWindowAction(WindowAction.Open, { activity })) } />
 	</div>
 )
 
