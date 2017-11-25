@@ -37,7 +37,8 @@ const Showcase: React.SFC = () => (
 	<WindowManager
 		availableActivities={ availableActivities }
 		openWindows={ [{
-			activity: defaultActivity,
+			key: 'initial',
+			activity: { ...defaultActivity },
 			position: {
 				x: 0,
 				y: 0,
