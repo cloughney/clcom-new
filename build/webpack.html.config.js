@@ -7,23 +7,13 @@ export function getPlugins(env) {
 	];
 }
 
-function createEnvironmentLink(link, env) {
-	if (!env.isProduction) {
-		return link;
-	}
-
-	if (/.html$/.test(link)) {
-		return link.substring(0, link.lastIndexOf('.'));
-	}
-}
-
 function getPageConfig(env, {
 	pageName = undefined
 } = {}) {
 	return {
 		includeDevServer: env.isDevelopment,
 		links: {
-			'resume': { href: createEnvironmentLink('/', env), isActive: pageName === 'resume' },
+			'resume': { href: '/', isActive: pageName === 'resume' },
 			'showcase': { href: '/showcase.html', isActive: pageName === 'showcase' },
 			'blog': { href: '//blog.chrisloughney.com' },
 			'github': { href: '//github.com/cloughney' },
