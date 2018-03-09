@@ -51,7 +51,7 @@ body .sidebar {
 			margin: 0;
 
 			.menu-item {
-				@extend .col-md-6;
+				@extend .col-lg-6;
 				@include fancy-links;
 				padding: 5px 0;
 				font-size: 1.5em;
