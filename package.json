@@ -25,7 +25,7 @@
     "babel-register": "^6.26.0",
     "bootstrap-sass": "^3.3.7",
     "font-awesome": "^4.7.0",
-    "handlebars": "^4.0.10",
+    "handlebars": "^4.5.3",
     "handlebars-loader": "^1.6.0",
     "react": "^15.6.1",
     "react-console": "https://github.com/cloughney/react-console",
